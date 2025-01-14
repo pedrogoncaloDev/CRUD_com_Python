@@ -1,5 +1,5 @@
 <template>
-  <h1>teste</h1>
+  <v-text-field class="mx-3" label="Pesquisar" clearable></v-text-field>
 </template>
 
 <script>
