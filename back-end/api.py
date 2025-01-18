@@ -1,8 +1,16 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 from users import Users
 import psycopg2
 
 app = Flask(__name__)
+
+# conn_info = {
+#     'dbname': 'your_db_name',
+#     'user': 'your_db_user',
+#     'password': 'your_db_password',
+#     'host': 'your_db_host',
+#     'port': 'your_db_port'
+# }
 
 conn_info = {
     'dbname': 'crud_com_python',
@@ -14,6 +22,7 @@ conn_info = {
 
 users = Users(conn_info)
 
+# Rotas
 @app.route('/users', methods=['GET'])
 def read_users():
     all_users = users.read_users()
