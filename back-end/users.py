@@ -13,7 +13,7 @@ class Users:
         with self.connect() as conn:
             with conn.cursor() as cur:
                 cur.execute("""
-                    INSERT INTO users (nome, email, senha, data_criacao, data_atualizacao)
+                    INSERT INTO usuarios (nome, email, senha, data_criacao, data_atualizacao)
                     VALUES (%s, %s, %s, %s, %s) RETURNING id;
                 """, (user['nome'], user['email'], user['senha'], user['data_criacao'], user['data_atualizacao']))
                 new_id = cur.fetchone()[0]
@@ -23,9 +23,9 @@ class Users:
     def read_users(self):
         with self.connect() as conn:
             with conn.cursor() as cur:
-                cur.execute("SELECT * FROM users;")
-                users = cur.fetchall()
-                for user in users:
+                cur.execute("SELECT * FROM usuarios")
+                usuarios = cur.fetchall()
+                for user in usuarios:
                     print(user)
 
     # UPDATE - Atualiza um usuário pelo ID
@@ -41,12 +41,12 @@ class Users:
                 set_clause = ", ".join(f"{key} = %s" for key in updates.keys())
                 values = list(updates.values()) + [user_id]
                 
-                cur.execute(sql.SQL(f"UPDATE users SET {set_clause} WHERE id = %s"), values)
+                cur.execute(sql.SQL(f"UPDATE usuarios SET {set_clause} WHERE id = %s"), values)
                 print(f"Usuário com ID {user_id} atualizado com sucesso.")
 
     # DELETE - Remove um usuário pelo ID
     def delete_user(self, user_id):
         with self.connect() as conn:
             with conn.cursor() as cur:
-                cur.execute("DELETE FROM users WHERE id = %s", (user_id,))
+                cur.execute("DELETE FROM usuarios WHERE id = %s", (user_id,))
                 print(f"Usuário com ID {user_id} removido com sucesso.")
