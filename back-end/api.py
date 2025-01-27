@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from users import Users
-import psycopg2
+# import psycopg2
 
 app = Flask(__name__)
 
@@ -32,19 +32,19 @@ def read_users():
 # def create_user():
 #     user_data = request.json
 #     users.create_user(user_data)
-#     return jsonify({"message": "User created successfully"}), 201
+#     return jsonify({"message": "Usuário criado com sucesso"}), 201
 
 # @app.route('/users/<int:user_id>', methods=['PUT'])
 # def update_user(user_id):
 #     user_data = request.json
 #     user_data['id'] = user_id
 #     users.update_user(user_data)
-#     return jsonify({"message": "User updated successfully"}), 200
+#     return jsonify({"message": "Usuário atualizado com sucesso"}), 200
 
 # @app.route('/users/<int:user_id>', methods=['DELETE'])
 # def delete_user(user_id):
 #     users.delete_user(user_id)
-#     return jsonify({"message": "User deleted successfully"}), 200
+#     return jsonify({"message": "Usuário deletado com sucesso"}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
