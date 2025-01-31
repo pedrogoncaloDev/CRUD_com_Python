@@ -26,7 +26,7 @@ users = Users(conn_info)
 @app.route('/users', methods=['GET'])
 def read_users():
     all_users = users.read_users()
-    return jsonify(all_users), 200
+    return jsonify(all_users), 200 
 
 # @app.route('/users', methods=['POST'])
 # def create_user():
