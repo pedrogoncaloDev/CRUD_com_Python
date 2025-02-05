@@ -1,24 +1,8 @@
 from flask import Flask, jsonify
 from users import Users
-# import psycopg2
+from config_db import conn_info
 
 app = Flask(__name__)
-
-# conn_info = {
-#     'dbname': 'your_db_name',
-#     'user': 'your_db_user',
-#     'password': 'your_db_password',
-#     'host': 'your_db_host',
-#     'port': 'your_db_port'
-# }
-
-conn_info = {
-    'dbname': 'crud_com_python',
-    'user': 'postgres',
-    'password': 'masterkey',
-    'host': 'localhost',
-    'port': '5432'
-}
 
 users = Users(conn_info)
 
