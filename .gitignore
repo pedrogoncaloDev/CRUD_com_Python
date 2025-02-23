@@ -23,3 +23,4 @@ pnpm-debug.log*
 
 # Back-end
 /back-end/config_db.py
+/back-end/__pycache__
