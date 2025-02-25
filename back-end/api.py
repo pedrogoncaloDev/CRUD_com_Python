@@ -1,16 +1,19 @@
 from flask import Flask, jsonify
 from users import Users
 from config_db import conn_info
+from utils import date_to_string
+import json
 
 app = Flask(__name__)
-
 users = Users(conn_info)
 
 # Rotas
 @app.route('/users', methods=['GET'])
 def read_users():
     all_users = users.read_users()
-    return jsonify(all_users), 200 
+    json_response = json.dumps(all_users, default=date_to_string, indent=4)
+
+    return json_response, 200 
 
 # @app.route('/users', methods=['POST'])
 # def create_user():
