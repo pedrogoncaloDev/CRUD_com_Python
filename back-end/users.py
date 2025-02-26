@@ -8,7 +8,6 @@ class Users:
     def connect(self):
         return psycopg2.connect(**self.conn_info)
     
-    # CREATE - Adiciona um novo usuário
     def create_user(self, user):
         with self.connect() as conn:
             with conn.cursor() as cur:
@@ -19,16 +18,14 @@ class Users:
                 new_id = cur.fetchone()[0]
                 print(f"Usuário inserido com ID: {new_id}")
 
-    # READ - Obtem todos os usuários
     def read_users(self):
         with self.connect() as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT * FROM usuarios")
-                usuarios = cur.fetchall()
-                for user in usuarios:
-                    print(user)
+                columns = [desc[0] for desc in cur.description]  # Obtém os nomes das colunas
+                users = [dict(zip(columns, line)) for line in cur.fetchall()]  # Converte cada linha em um dicionário
+                return users  # Retorna a lista de dicionários
 
-    # UPDATE - Atualiza um usuário pelo ID
     def update_user(self, user_data):
         user_id = user_data.pop('id', None)
         if user_id is None:
@@ -44,7 +41,6 @@ class Users:
                 cur.execute(sql.SQL(f"UPDATE usuarios SET {set_clause} WHERE id = %s"), values)
                 print(f"Usuário com ID {user_id} atualizado com sucesso.")
 
-    # DELETE - Remove um usuário pelo ID
     def delete_user(self, user_id):
         with self.connect() as conn:
             with conn.cursor() as cur:
