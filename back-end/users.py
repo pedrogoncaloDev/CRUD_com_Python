@@ -17,7 +17,6 @@ class Users:
                     cur.execute("SELECT id FROM usuarios WHERE email = %s", (user['email'],))
                     if cur.fetchone():
                         return {"success": False, "message": "Email já existe."}
-
             
             # Converta as strings de data para objetos datetime
             user['data_criacao'] = datetime.fromisoformat(user['data_criacao'].replace('Z', '+00:00'))
@@ -36,6 +35,7 @@ class Users:
         except Exception as e:
             return {"success": False, "message": f"{e}"}
 
+
     def read_users(self):
         with self.connect() as conn:
             with conn.cursor() as cur:
@@ -44,20 +44,27 @@ class Users:
                 users = [dict(zip(columns, line)) for line in cur.fetchall()]  # Converte cada linha em um dicionário
                 return users  # Retorna a lista de dicionários
 
-    def update_user(self, user_data):
-        user_id = user_data.pop('id', None)
-        if user_id is None:
-            raise ValueError("user_data must contain 'id' key")
 
-        with self.connect() as conn:
-            with conn.cursor() as cur:
-                updates = {k: v for k, v in user_data.items() if v is not None}
-                
-                set_clause = ", ".join(f"{key} = %s" for key in updates.keys())
-                values = list(updates.values()) + [user_id]
-                
-                cur.execute(sql.SQL(f"UPDATE usuarios SET {set_clause} WHERE id = %s"), values)
-                print(f"Usuário com ID {user_id} atualizado com sucesso.")
+    def update_user(self, user_data):
+        try:
+            with self.connect() as conn:
+                with conn.cursor() as cur:
+                    cur.execute("SELECT id FROM usuarios WHERE id = %s", (user_data['id'],))
+                    if not cur.fetchone():
+                        return {"success": False, "message": "Usuário não encontrado."}
+                    
+                    cur.execute("""
+                                UPDATE usuarios
+                                SET nome = %s, email = %s, senha = %s, data_atualizacao = %s
+                                WHERE id = %s
+                                """, 
+                                (user_data['nome'], user_data['email'], user_data['senha'], user_data['data_atualizacao'], user_data['id'])
+                                )
+                    
+                    return {"success": True, "message": f"Usuário {user_data['id']} atualizado com sucesso."}
+        except Exception as e:
+            return {"success": False, "message": f"{e}"}
+
 
     def delete_user(self, user_id):
         with self.connect() as conn:
