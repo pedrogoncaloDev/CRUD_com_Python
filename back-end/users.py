@@ -34,12 +34,17 @@ class Users:
 
 
     def read_users(self):
-        with self.connect() as conn:
-            with conn.cursor() as cur:
-                cur.execute("SELECT * FROM usuarios")
-                columns = [desc[0] for desc in cur.description]  # Obtém os nomes das colunas
-                users = [dict(zip(columns, line)) for line in cur.fetchall()]  # Converte cada linha em um dicionário
-                return users  # Retorna a lista de dicionários
+        try:
+            with self.connect() as conn:
+                with conn.cursor() as cur:
+                    cur.execute("SELECT * FROM usuarios order by id")
+
+                    columns = [desc[0] for desc in cur.description]  # Obtém os nomes das colunas
+                    users = [dict(zip(columns, line)) for line in cur.fetchall()]  # Converte cada linha em um dicionário
+                
+                    return {"success": True, "message": users}
+        except Exception as e:
+            return {"success": False, "message": f"{e}"}
 
 
     def update_user(self, user_data):

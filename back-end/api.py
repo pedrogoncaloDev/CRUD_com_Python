@@ -8,13 +8,6 @@ app = Flask(__name__)
 users = Users(conn_info)
 
 # Rotas
-@app.route('/users', methods=['GET'])
-def read_users():
-    all_users = users.read_users()
-    json_response = json.dumps(all_users, default=date_to_string, indent=4)
-
-    return json_response, 200 
-
 @app.route('/users', methods=['POST'])
 def create_user():
     try:
@@ -25,6 +18,21 @@ def create_user():
             return jsonify({"message": user_created["message"]}), 201
         else:
             return jsonify({"error": user_created["message"]}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+@app.route('/users', methods=['GET'])
+def read_users():
+    try:
+        users_read = users.read_users() 
+    
+        if users_read['success']:
+            json_response = json.dumps(users_read['message'], default=date_to_string, indent=4)
+
+            return json_response, 200
+        else:
+            return jsonify({"error": users_read["message"]}), 400
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
