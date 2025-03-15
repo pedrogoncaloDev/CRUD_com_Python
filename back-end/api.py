@@ -19,8 +19,7 @@ def read_users():
 def create_user():
     try:
         json_requisition = request.json
-        new_user = json.loads(json_requisition['query'])
-        user_created = users.create_user(new_user)
+        user_created = users.create_user(json_requisition)       
 
         if user_created['success']:
             return jsonify({"message": user_created["message"]}), 201
@@ -34,8 +33,12 @@ def create_user():
 def update_user(user_id):
     user_data = request.json
     user_data['id'] = user_id
-    users.update_user(user_data)
-    return jsonify({"message": "Usuário atualizado com sucesso"}), 200
+    user_updated = users.update_user(user_data)
+
+    if user_updated['success']:
+        return jsonify({"message": user_updated["message"]}), 201
+    else:
+        return jsonify({"error": user_updated["message"]}), 400
 
 
 @app.route('/users/<int:user_id>', methods=['DELETE'])
