@@ -45,8 +45,15 @@ def update_user():
 
 @app.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
-    users.delete_user(user_id)
-    return jsonify({"message": "Usuário deletado com sucesso"}), 200
+    try:
+        user_deleted = users.delete_user(user_id)
+
+        if user_deleted['success']:
+            return jsonify({"message": user_deleted["message"]}), 200
+        else:
+            return jsonify({"error": user_deleted["message"]}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}),
 
 
 if __name__ == '__main__':

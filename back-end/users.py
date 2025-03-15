@@ -73,6 +73,6 @@ class Users:
                 with conn.cursor() as cur:
                     cur.execute("DELETE FROM usuarios WHERE id = %s", (user_id,))
 
-                    return {"success": True, "message": f"Usuário com ID {user_id} removido com sucesso."}
+                    return {"success": True, "message": f"Usuário com ID {user_id} deletado com sucesso."}
         except Exception as e:
             return {"success": False, "message": f"{e}"}
