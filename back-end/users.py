@@ -15,7 +15,7 @@ class Users:
                 with conn.cursor() as cur:
                     cur.execute("SELECT id FROM usuarios WHERE email = %s", (user['email'],))
                     if cur.fetchone():
-                        return {"success": False, "message": "Email já existe."}
+                        return {"success": False, "message": "Email já utilizado por outro usuário."}
             
                     # Converta as strings de data para objetos datetime
                     user['data_criacao'] = datetime.fromisoformat(user['data_criacao'].replace('Z', '+00:00'))
@@ -64,7 +64,11 @@ class Users:
 
 
     def delete_user(self, user_id):
-        with self.connect() as conn:
-            with conn.cursor() as cur:
-                cur.execute("DELETE FROM usuarios WHERE id = %s", (user_id,))
-                print(f"Usuário com ID {user_id} removido com sucesso.")
+        try:
+            with self.connect() as conn:
+                with conn.cursor() as cur:
+                    cur.execute("DELETE FROM usuarios WHERE id = %s", (user_id,))
+
+                    return {"success": True, "message": f"Usuário com ID {user_id} removido com sucesso."}
+        except Exception as e:
+            return {"success": False, "message": f"{e}"}
