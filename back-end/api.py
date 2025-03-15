@@ -29,16 +29,18 @@ def create_user():
         return jsonify({"error": str(e)}), 400
 
 
-@app.route('/users/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
-    user_data = request.json
-    user_data['id'] = user_id
-    user_updated = users.update_user(user_data)
+@app.route('/users', methods=['PUT'])
+def update_user():
+    try:
+        user_data = request.json
+        user_updated = users.update_user(user_data)
 
-    if user_updated['success']:
-        return jsonify({"message": user_updated["message"]}), 201
-    else:
-        return jsonify({"error": user_updated["message"]}), 400
+        if user_updated['success']:
+            return jsonify({"message": user_updated["message"]}), 201
+        else:
+            return jsonify({"error": user_updated["message"]}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 
 @app.route('/users/<int:user_id>', methods=['DELETE'])

@@ -50,6 +50,10 @@ class Users:
                     if not cur.fetchone():
                         return {"success": False, "message": "Usuário não encontrado."}
                     
+                    cur.execute("SELECT id FROM usuarios WHERE email = %s AND id != %s", (user_data['email'], user_data['id']))
+                    if cur.fetchone():
+                        return {"success": False, "message": "Email já utilizado por outro usuário."}
+                    
                     cur.execute("""
                                 UPDATE usuarios
                                 SET nome = %s, email = %s, senha = %s, data_atualizacao = %s
@@ -58,7 +62,7 @@ class Users:
                                 (user_data['nome'], user_data['email'], user_data['senha'], user_data['data_atualizacao'], user_data['id'])
                                 )
                     
-                    return {"success": True, "message": f"Usuário {user_data['id']} atualizado com sucesso."}
+                    return {"success": True, "message": f"Usuário com ID: {user_data['id']} atualizado com sucesso."}
         except Exception as e:
             return {"success": False, "message": f"{e}"}
 
