@@ -1,8 +1,5 @@
 <template>
-    <v-dialog v-model="localDialog" max-width="500px" @input="updateDialog">
-        <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark v-on="on">Cadastrar Novo Usuário</v-btn>
-        </template>
+    <v-dialog v-model="localDialog" max-width="500px">
         <v-card>
             <v-card-title>
                 <span class="headline">Cadastrar Novo Usuário</span>
@@ -24,8 +21,8 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
-                <v-btn color="blue darken-1" text @click="save()">Salvar</v-btn>
+                <v-btn color="blue darken-1" text @click="CloseModal()">Cancelar</v-btn>
+                <v-btn color="blue darken-1" text @click="CreateUser()">Salvar</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -39,7 +36,9 @@ export default {
     props: {
         dialog: Boolean
     },
+
     emits: ['CloseModal'],
+
     data() {
         return {
             newUser: {
@@ -47,20 +46,24 @@ export default {
                 email: '',
                 password: ''
             },
+            
             localDialog: this.dialog
         };
     },
+
     watch: {
         dialog(newVal) {
             this.localDialog = newVal;
         }
     },
+
     methods: {
-        close() {
+        CloseModal() {
             this.$emit('CloseModal');
             this.newUser = { name: '', email: '', password: '' };
         },
-        async save() {
+
+        async CreateUser() {
             try {
                 this.newUser.data_criacao = new Date().toISOString();
                 this.newUser.data_atualizacao = new Date().toISOString();
@@ -76,13 +79,6 @@ export default {
                 console.error("Erro ao salvar o usuário:", error);
             }
         },
-        updateDialog(value) {
-            this.$emit('update:dialog', value);
-        }
     }
 };
 </script>
-
-<style scoped>
-/* Adicione estilos personalizados aqui, se necessário */
-</style>
