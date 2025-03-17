@@ -20,7 +20,8 @@
             <v-icon icon="mdi mdi-delete-outline" size="35" color="black" style="cursor: pointer;"></v-icon> -->
 
             <!-- <button @click="ShowModalAddUser = true;">criar</button> -->
-            <button @click="EditUser(item)">editar</button>
+            <!-- <button @click="EditUser(item)">editar</button> -->
+            <button @click="DeleteUser(item.id)">deletar</button>
           </td>
           <td>{{ item.id }}</td>
           <td>{{ item.nome }}</td>
@@ -37,11 +38,13 @@
 
   <AddUserModal :dialog="ShowModalAddUser" @CloseModal="CloseModal" />
   <EditUserModal :dialog="ShowModalEditUser" :informationsUser="informationsUser" @CloseModal="CloseModal" />
+  <DeleteUserModal :dialog="ShowModalDeleteUser" :id_user="IDUserDelete" @CloseModal="CloseModal" />
 </template>
 
 <script>
 import AddUserModal from '@/modais/AddUserModal.vue';
 import EditUserModal from '@/modais/EditUserModal.vue';
+import DeleteUserModal from '@/modais/DeleteUserModal.vue';
 import { API_URL, formatDate } from '../utils';
 import axios from 'axios';
 
@@ -50,7 +53,8 @@ export default {
 
   components: {
     AddUserModal,
-    EditUserModal
+    EditUserModal,
+    DeleteUserModal
   },
 
   data() {
@@ -69,7 +73,9 @@ export default {
 
       users: [],
       ShowModalAddUser: false,
-      ShowModalEditUser: false
+      ShowModalEditUser: false,
+      ShowModalDeleteUser: false,
+      IDUserDelete: null
     }
   },
 
@@ -85,6 +91,7 @@ export default {
     CloseModal() {
       this.ShowModalAddUser = false;
       this.ShowModalEditUser = false;
+      this.ShowModalDeleteUser = false;
 
       this.GetUsers();
     },
@@ -102,6 +109,11 @@ export default {
     EditUser(user){
       this.informationsUser = user; 
       this.ShowModalEditUser = true;
+    },
+
+    DeleteUser(id_user){
+      this.IDUserDelete = id_user;
+      this.ShowModalDeleteUser = true;
     }
   }
 }
