@@ -1,75 +1,74 @@
 <template>
-  <div>
+  <v-container fluid>
     <v-text-field class="mx-3" label="Pesquisar" clearable></v-text-field>
 
     <v-data-table
-      :headers="headers"
-      :items="items"
-      class="elevation-1 mx-3"
-    >
-      <template v-slot:top>
-        <v-toolbar flat>
-          <v-toolbar-title>Users</v-toolbar-title>
-          <v-divider class="mx-4" inset vertical></v-divider>
-          <v-spacer></v-spacer>
-          <v-btn color="primary" @click="AddUser">Add User</v-btn>
-        </v-toolbar>
+      style="height: 100%; width: 100%;"
+      :headers="headers" no-data-text="Nenhum usuário cadastrado" :items="users" class="border-b"
+      items-per-page="10">
+      <template v-slot:no-data>
+        <v-card-text>
+          <v-icon color="black" class=" mb-1" icon="mdi-emoticon-cool"></v-icon>
+          Nenhum usuário cadastrado
+        </v-card-text>
       </template>
-      <template v-slot:item.action="{ item }">
-        <v-btn icon @click="EditUser(item)">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn icon @click="DeleteUser(item)">
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
+      <template v-slot:item="{ item }">
+        <tr>
+          <td>
+            <v-icon @click="EditUser(item)" icon="mdi mdi-file-edit-outline" size="35" color="black" style="cursor: pointer;"></v-icon>
+            <v-icon @click="DeleteUser(item)" icon="mdi mdi-delete-outline" size="35" color="black" style="cursor: pointer;"></v-icon>
+          </td>
+          <td>{{ item.id }}</td>
+          <td>{{ item.nome }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.senha }}</td>
+          <td>{{ item.data_criacao }}</td>
+          <td>{{ item.data_atualizacao }}</td>
+        </tr>
       </template>
     </v-data-table>
-  </div>
+  </v-container>
 </template>
 
 <script>
+import { API_URL } from '../utils';
+import axios from 'axios';
+
 export default {
   name: 'HomePage',
 
   data() {
     return {
       headers: [
-        { text: 'Actions', value: 'action', sortable: false },
-        { text: 'ID', value: 'id' },
-        { text: 'Nome', value: 'nome' },
-        { text: 'Email', value: 'email' },
-        { text: 'Senha', value: 'senha' },
-        { text: 'Data de Criação', value: 'data_criacao' },
-        { text: 'Data de Atualização', value: 'data_atualizacao' }
+        { acoes: null },
+        { title: 'ID', key: 'id' },
+        { title: 'Nome', key: 'nome',},
+        { title: 'Email', key: 'email' },
+        { title: 'Senha', key: 'senha' },
+        { title: 'Data de Criação', key: 'data_criacao' },
+        { title: 'Data de Atualização', key: 'data_atualizacao' },
       ],
-      items: [
-        {
-          id: 1,
-          nome: 'Novo Nome',
-          email: 'teste@email.com',
-          senha: 'senha123',
-          data_criacao: '2025-01-03T23:57:32.225Z',
-          data_atualizacao: '2025-01-03T23:57:32.225Z'
-        }
-      ]
+
+      users: [],
     }
   },
+
+  created() {
+    axios.get(API_URL)
+      .then(response => {
+        this.users = response.data;
+      })
+      .catch(error => {
+        console.error("Houve um erro ao buscar os usuários:", error);
+      });
+  },
+
   methods: {
-    AddUser() {
-      // Lógica para adicionar um novo usuário
-    },
-    EditUser(item) {
-      console.log('Edit item:', item);
-      // Lógica para editar o usuário
-    },
-    DeleteUser(item) {
-      console.log('Delete item:', item);
-      // Lógica para deletar o usuário
-    }
+
   }
 }
 </script>
 
 <style scoped>
-/* Estilos personalizados */
+
 </style>

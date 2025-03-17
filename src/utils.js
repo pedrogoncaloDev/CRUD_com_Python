@@ -1,3 +1,5 @@
+export const API_URL = 'http://localhost:5000/users';
+
 export function formatDate(isoString) {
     const date = new Date(isoString);
 
