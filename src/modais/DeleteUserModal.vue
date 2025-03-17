@@ -45,12 +45,12 @@ import axios from 'axios';
                 axios.delete(`${API_URL}/${this.id_user}`)
                     .then(() => {
                         console.log("Usuário deletado com sucesso!");
+                        this.$emit('CloseModal');
                     })
                     .catch((error) => {
                         console.error("Erro ao deletar o usuário:", error);
+                        this.$emit('CloseModal');
                     });
-
-                this.$emit('CloseModal');
             }
         }
     };
