@@ -19,7 +19,8 @@
             <v-icon icon="mdi mdi-file-edit-outline" size="35" color="black" style="cursor: pointer;"></v-icon>
             <v-icon icon="mdi mdi-delete-outline" size="35" color="black" style="cursor: pointer;"></v-icon> -->
 
-            <button @click="ShowModal()">t</button>
+            <!-- <button @click="ShowModalAddUser = true;">criar</button> -->
+            <button @click="EditUser(item)">editar</button>
           </td>
           <td>{{ item.id }}</td>
           <td>{{ item.nome }}</td>
@@ -30,22 +31,28 @@
         </tr>
       </template>
     </v-data-table>
+
+    <template v-slot:activator="{ on }">
+      <v-btn color="primary" dark v-on="on">Cadastrar Novo Usuário</v-btn>
+    </template>
   </v-container>
 
-  <AddUserModal :dialog="ShowModalNewUser" @CloseModal="CloseModal" />
-  <EditUserModal :dialog="ShowModalNewUser" @CloseModal="CloseModal" />
+  <AddUserModal :dialog="ShowModalAddUser" @CloseModal="CloseModal" />
+  <EditUserModal :dialog="ShowModalEditUser" :informationsUser="informationsUser" @CloseModal="CloseModal" />
 </template>
 
 <script>
-import { API_URL, formatDate } from '../utils';
 import AddUserModal from '@/modais/AddUserModal.vue';
+import EditUserModal from '@/modais/EditUserModal.vue';
+import { API_URL, formatDate } from '../utils';
 import axios from 'axios';
 
 export default {
   name: 'HomePage',
 
   components: {
-    AddUserModal
+    AddUserModal,
+    EditUserModal
   },
 
   data() {
@@ -60,8 +67,11 @@ export default {
         { title: 'Data de Atualização', key: 'data_atualizacao' },
       ],
 
+      informationsUser: {},
+
       users: [],
-      ShowModalNewUser: false
+      ShowModalAddUser: false,
+      ShowModalEditUser: false
     }
   },
 
@@ -74,12 +84,10 @@ export default {
       return formatDate(dateString);
     },
 
-    ShowModal() {
-      this.ShowModalNewUser = true;
-    },
-
     CloseModal() {
-      this.ShowModalNewUser = false;
+      this.ShowModalAddUser = false;
+      this.ShowModalEditUser = false;
+
       this.GetUsers();
     },
 
@@ -91,6 +99,11 @@ export default {
       .catch(error => {
         console.error("Houve um erro ao buscar os usuários:", error);
       });
+    },
+
+    EditUser(user){
+      this.informationsUser = user; 
+      this.ShowModalEditUser = true;
     }
   }
 }
