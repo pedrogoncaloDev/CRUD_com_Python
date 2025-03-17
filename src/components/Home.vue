@@ -32,9 +32,7 @@
       </template>
     </v-data-table>
 
-    <template v-slot:activator="{ on }">
-      <v-btn color="primary" dark v-on="on">Cadastrar Novo Usuário</v-btn>
-    </template>
+    <v-btn color="primary" dark v-on="on">Cadastrar Novo Usuário</v-btn>
   </v-container>
 
   <AddUserModal :dialog="ShowModalAddUser" @CloseModal="CloseModal" />
