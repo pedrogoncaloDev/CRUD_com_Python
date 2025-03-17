@@ -15,27 +15,38 @@
       <template v-slot:item="{ item }">
         <tr>
           <td>
-            <v-icon @click="EditUser(item)" icon="mdi mdi-file-edit-outline" size="35" color="black" style="cursor: pointer;"></v-icon>
-            <v-icon @click="DeleteUser(item)" icon="mdi mdi-delete-outline" size="35" color="black" style="cursor: pointer;"></v-icon>
+            <!-- <v-icon icon="mdi mdi-file-edit-outline" size="35" color="black" style="cursor: pointer;"></v-icon>
+            <v-icon icon="mdi mdi-file-edit-outline" size="35" color="black" style="cursor: pointer;"></v-icon>
+            <v-icon icon="mdi mdi-delete-outline" size="35" color="black" style="cursor: pointer;"></v-icon> -->
+
+            <button @click="ShowModal()">t</button>
           </td>
           <td>{{ item.id }}</td>
           <td>{{ item.nome }}</td>
           <td>{{ item.email }}</td>
           <td>{{ item.senha }}</td>
-          <td>{{ item.data_criacao }}</td>
-          <td>{{ item.data_atualizacao }}</td>
+          <td>{{ formatDate(item.data_criacao) }}</td>
+          <td>{{ formatDate(item.data_atualizacao) }}</td>
         </tr>
       </template>
     </v-data-table>
   </v-container>
+
+  <AddUserModal :dialog="ShowModalNewUser" @CloseModal="CloseModal" />
+  <EditUserModal :dialog="ShowModalNewUser" @CloseModal="CloseModal" />
 </template>
 
 <script>
-import { API_URL } from '../utils';
+import { API_URL, formatDate } from '../utils';
+import AddUserModal from '@/modais/AddUserModal.vue';
 import axios from 'axios';
 
 export default {
   name: 'HomePage',
+
+  components: {
+    AddUserModal
+  },
 
   data() {
     return {
@@ -50,21 +61,37 @@ export default {
       ],
 
       users: [],
+      ShowModalNewUser: false
     }
   },
 
   created() {
-    axios.get(API_URL)
+    this.GetUsers();
+  },
+
+  methods: {
+    formatDate(dateString) {
+      return formatDate(dateString);
+    },
+
+    ShowModal() {
+      this.ShowModalNewUser = true;
+    },
+
+    CloseModal() {
+      this.ShowModalNewUser = false;
+      this.GetUsers();
+    },
+
+    GetUsers(){
+      axios.get(API_URL)
       .then(response => {
         this.users = response.data;
       })
       .catch(error => {
         console.error("Houve um erro ao buscar os usuários:", error);
       });
-  },
-
-  methods: {
-
+    }
   }
 }
 </script>
