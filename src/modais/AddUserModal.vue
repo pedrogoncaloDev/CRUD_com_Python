@@ -71,7 +71,7 @@ export default {
                 const response = await axios.post(API_URL, this.newUser);
 
                 if (response.status === 201) {
-                    this.close();
+                    this.CloseModal();
                 } else {
                     console.error("Erro ao salvar o usuário:", response.data);
                 }

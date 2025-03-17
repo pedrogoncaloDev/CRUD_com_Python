@@ -32,7 +32,7 @@
       </template>
     </v-data-table>
 
-    <v-btn color="primary" dark v-on="on">Cadastrar Novo Usuário</v-btn>
+    <v-btn color="primary" @click="ShowModalAddUser = true">Cadastrar Novo Usuário</v-btn>
   </v-container>
 
   <AddUserModal :dialog="ShowModalAddUser" @CloseModal="CloseModal" />
