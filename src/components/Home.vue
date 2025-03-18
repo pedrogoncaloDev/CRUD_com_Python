@@ -15,13 +15,8 @@
       <template v-slot:item="{ item }">
         <tr>
           <td>
-            <!-- <v-icon icon="mdi mdi-file-edit-outline" size="35" color="black" style="cursor: pointer;"></v-icon>
-            <v-icon icon="mdi mdi-file-edit-outline" size="35" color="black" style="cursor: pointer;"></v-icon>
-            <v-icon icon="mdi mdi-delete-outline" size="35" color="black" style="cursor: pointer;"></v-icon> -->
-
-            <!-- <button @click="ShowModalAddUser = true;">criar</button> -->
-            <!-- <button @click="EditUser(item)">editar</button> -->
-            <button @click="DeleteUser(item.id)">deletar</button>
+            <v-icon @click="EditUser(item)" icon="mdi mdi-file-edit-outline" size="30" class="mr-2" style="cursor: pointer;"></v-icon>
+            <v-icon @click="DeleteUser(item.id)" icon="mdi mdi-delete-outline" size="30" style="cursor: pointer;"></v-icon>
           </td>
           <td>{{ item.id }}</td>
           <td>{{ item.nome }}</td>
@@ -60,7 +55,7 @@ export default {
   data() {
     return {
       headers: [
-        { acoes: null },
+        { title: 'Ações' },
         { title: 'ID', key: 'id' },
         { title: 'Nome', key: 'nome',},
         { title: 'Email', key: 'email' },
