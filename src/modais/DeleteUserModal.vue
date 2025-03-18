@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="localDialog" max-width="500px">
+    <v-dialog v-model="localDialog" max-width="500px" persistent="true">
         <v-card>
             <v-card-title class="headline">Confirmar Exclusão</v-card-title>
             <v-card-text>
