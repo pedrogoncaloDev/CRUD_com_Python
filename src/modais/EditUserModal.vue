@@ -8,7 +8,7 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12">
-                            <v-text-field v-model="user.nome" label="Name" required clearable></v-text-field>
+                            <v-text-field v-model="user.nome" label="Nome" required clearable></v-text-field>
                         </v-col>
                         <v-col cols="12">
                             <v-text-field v-model="user.email" label="Email" required clearable></v-text-field>
