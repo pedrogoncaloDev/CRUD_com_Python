@@ -4,13 +4,14 @@
       class="mx-3"
       label="Pesquisar"
       clearable
+      v-model="search"
     ></v-text-field>
 
     <v-data-table
       style="height: 100%; width: 100%;"
       :headers="headers"
       no-data-text="Nenhum usuário cadastrado"
-      :items="users"
+      :items="filteredUsers"
       class="border-b"
       items-per-page="10"
     >
@@ -92,22 +93,43 @@ export default {
   data() {
     return {
       headers: [
-        { title: 'Ações' },
-        { title: 'ID', key: 'id' },
-        { title: 'Nome', key: 'nome',},
-        { title: 'Email', key: 'email' },
-        { title: 'Senha', key: 'senha' },
-        { title: 'Data de Criação', key: 'data_criacao' },
-        { title: 'Data de Atualização', key: 'data_atualizacao' },
+        { title: "Ações" },
+        { title: "ID", key: "id" },
+        { title: "Nome", key: "nome" },
+        { title: "Email", key: "email" },
+        { title: "Senha", key: "senha" },
+        { title: "Data de Criação", key: "data_criacao" },
+        { title: "Data de Atualização", key: "data_atualizacao" },
       ],
 
       users: [],
+      search: "",
       informationsUser: {},
       ShowModalAddUser: false,
       ShowModalEditUser: false,
       ShowModalDeleteUser: false,
       IDUserDelete: null,
     };
+  },
+
+  computed: {
+    filteredUsers() {
+      if (!this.search) {
+        return this.users;
+      }
+
+      const searchLower = this.search.toLowerCase();
+      return this.users.filter((user) => {
+        return (
+          user.nome.toLowerCase().includes(searchLower) ||
+          user.email.toLowerCase().includes(searchLower) ||
+          user.senha.toLowerCase().includes(searchLower) ||
+          user.id.toString().includes(searchLower) ||
+          formatDate(user.data_criacao).includes(searchLower) ||
+          formatDate(user.data_atualizacao).includes(searchLower)
+        );
+      });
+    },
   },
 
   created() {
