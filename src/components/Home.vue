@@ -1,19 +1,20 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="pa-4">
     <v-text-field
-      class="mx-3"
+      class="mx-3 placeholder-light"
       label="Pesquisar"
       clearable
       v-model="search"
+      color="primary"
     ></v-text-field>
 
     <v-data-table
-      style="height: 100%; width: 100%;"
       :headers="headers"
-      no-data-text="Nenhum usuário cadastrado"
       :items="filteredUsers"
-      class="border-b"
+      no-data-text="Nenhum usuário cadastrado"
+      class="elevation-1"
       items-per-page="10"
+      dark
     >
       <template v-slot:no-data>
         <v-card-text>
@@ -22,31 +23,29 @@
       </template>
       <template v-slot:item="{ item }">
         <tr>
-          <td class="w-30 text-nowrap">
+          <td>
             <v-icon
               @click="EditUser(item)"
               icon="mdi mdi-file-edit-outline"
               size="30"
               class="mr-2"
               style="cursor: pointer;"
+              color="primary"
             ></v-icon>
             <v-icon
               @click="DeleteUser(item.id)"
               icon="mdi mdi-delete-outline"
               size="30"
               style="cursor: pointer;"
+              color="error"
             ></v-icon>
           </td>
-          <td class="w-30 text-nowrap">{{ item.id }}</td>
-          <td class="w-150 text-nowrap">{{ item.nome }}</td>
-          <td class="w-200 text-nowrap">{{ item.email }}</td>
-          <td class="w-150 text-nowrap">{{ item.senha }}</td>
-          <td class="w-200 text-nowrap">
-            {{ formatDate(item.data_criacao) }}
-          </td>
-          <td class="w-200 text-nowrap">
-            {{ formatDate(item.data_atualizacao) }}
-          </td>
+          <td>{{ item.id }}</td>
+          <td>{{ item.nome }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.senha }}</td>
+          <td>{{ formatDate(item.data_criacao) }}</td>
+          <td>{{ formatDate(item.data_atualizacao) }}</td>
         </tr>
       </template>
     </v-data-table>
@@ -176,5 +175,9 @@ export default {
 <style scoped>
 .text-nowrap {
   white-space: nowrap;
+}
+
+.placeholder-light ::v-deep(.v-input__control::placeholder) {
+  color: rgba(255, 255, 255, 0.6);
 }
 </style>
