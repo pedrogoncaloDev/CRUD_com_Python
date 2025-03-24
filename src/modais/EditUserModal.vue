@@ -65,9 +65,9 @@ export default {
             this.localDialog = newVal;
         },
 
-        informationsUser(newVal){
-            this.user = newVal;
-        }
+        informationsUser(newVal) {
+            this.user = JSON.parse(JSON.stringify(newVal));
+        },
     },
 
     methods: {
@@ -90,6 +90,7 @@ export default {
                 }
             } catch (error) {
                 console.error("Erro ao salvar o usuário:", error);
+                this.$emit("showMessageModal", "Erro", error.message);
             }
         },
     }

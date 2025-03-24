@@ -14,7 +14,13 @@
                             <v-text-field v-model="newUser.email" label="Email" required></v-text-field>
                         </v-col>
                         <v-col cols="12">
-                            <v-text-field v-model="newUser.senha" label="Senha" type="password" required></v-text-field>
+                            <v-text-field
+                                v-model="newUser.senha"
+                                :append-icon="ShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="ShowPassword ? 'text' : 'password'"
+                                label="Senha"
+                                @click:append="ShowPassword = !ShowPassword"
+                            ></v-text-field>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -46,7 +52,7 @@ export default {
                 email: '',
                 password: ''
             },
-            
+            ShowPassword: false,
             localDialog: this.dialog
         };
     },
@@ -79,6 +85,7 @@ export default {
                 }
             } catch (error) {
                 console.error("Erro ao salvar o usuário:", error);
+                this.$emit("showMessageModal", "Erro", error.message);
             }
         },
     }

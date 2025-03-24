@@ -61,7 +61,7 @@
   </v-container>
 
   <!-- MODAIS -->
-  <AddUserModal 
+  <AddUserModal
     :dialog="ShowModalAddUser" 
     @CloseModal="CloseModal"
     @showMessageModal="showMessageModal"
