@@ -12,6 +12,7 @@
       :headers="headers"
       :items="filteredUsers"
       no-data-text="Nenhum usuário cadastrado"
+      items-per-page-text="Itens por página"
       class="elevation-1"
       items-per-page="10"
       dark
@@ -33,7 +34,7 @@
               color="primary"
             ></v-icon>
             <v-icon
-              @click="DeleteUser(item.id)"
+              @click="DeleteUser(item)"
               icon="mdi mdi-delete-outline"
               size="30"
               style="cursor: pointer;"
@@ -50,7 +51,7 @@
       </template>
     </v-data-table>
 
-    <v-btn
+    <v-btn v-if="IsOnAPI"
       color="primary"
       class="mt-3"
       block
@@ -60,17 +61,35 @@
     </v-btn>
   </v-container>
 
-  <AddUserModal :dialog="ShowModalAddUser" @CloseModal="CloseModal" />
+  <!-- MODAIS -->
+  <AddUserModal 
+    :dialog="ShowModalAddUser" 
+    @CloseModal="CloseModal"
+    @showMessageModal="showMessageModal"
+  />
+
   <EditUserModal
     :dialog="ShowModalEditUser"
     :informationsUser="informationsUser"
     @CloseModal="CloseModal"
+    @showMessageModal="showMessageModal"
   />
+
   <DeleteUserModal
     :dialog="ShowModalDeleteUser"
-    :id_user="IDUserDelete"
+    :informationsUser="informationsUser"
     @CloseModal="CloseModal"
+    @showMessageModal="showMessageModal"
   />
+
+  <v-snackbar :color="messageModal.color" v-model="messageModal.dialog" max-width="500" :persistent="true" timer="true" timeout="4000">
+    <v-card-title class="text-h5">{{ messageModal.title }}</v-card-title>
+    <v-card-text>{{ messageModal.message }}</v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn text @click="messageModal.dialog = false;">Fechar</v-btn>
+    </v-card-actions>
+  </v-snackbar>
 </template>
 
 <script>
@@ -107,7 +126,13 @@ export default {
       ShowModalAddUser: false,
       ShowModalEditUser: false,
       ShowModalDeleteUser: false,
-      IDUserDelete: null,
+      messageModal: {
+        dialog: false,
+        title: "",
+        message: "",
+        color: ""
+      },
+      IsOnAPI: false
     };
   },
 
@@ -153,9 +178,11 @@ export default {
         .get(API_URL)
         .then((response) => {
           this.users = response.data;
+          this.IsOnAPI = true;
         })
         .catch((error) => {
           console.error("Houve um erro ao buscar os usuários:", error);
+          this.showMessageModal("Erro", "Houve um erro ao buscar os usuários!");
         });
     },
 
@@ -164,9 +191,16 @@ export default {
       this.ShowModalEditUser = true;
     },
 
-    DeleteUser(id_user) {
-      this.IDUserDelete = id_user;
+    DeleteUser(user) {
+      this.informationsUser = user;
       this.ShowModalDeleteUser = true;
+    },
+
+    showMessageModal(title, message) {
+      this.messageModal.title = title;
+      this.messageModal.message = message;
+      this.messageModal.dialog = true;
+      this.messageModal.color = title === "Sucesso" ? "success" : "error";
     },
   },
 };

@@ -2,7 +2,7 @@
     <v-dialog v-model="localDialog" max-width="500px" persistent="true">
         <v-card>
             <v-card-title>
-                <span class="headline">Editar Usuário</span>
+                <span class="headline">Editar Usuário - {{ informationsUser.nome }} (ID: {{ informationsUser.id }}) </span>
             </v-card-title>
             <v-card-text>
                 <v-container>
@@ -50,7 +50,7 @@ export default {
         informationsUser: Object
     },
 
-    emits: ['CloseModal'],
+    emits: ["CloseModal", "showMessageModal"],
 
     data() {
         return {
@@ -83,8 +83,10 @@ export default {
 
                 if (response.status === 201) {
                     this.CloseModal();
+                    this.$emit("showMessageModal", "Sucesso", "Usuário editado com sucesso!");
                 } else {
                     console.error("Erro ao salvar o usuário:", response.data);
+                    this.$emit("showMessageModal", "Erro", "Erro ao editar o usuário!");
                 }
             } catch (error) {
                 console.error("Erro ao salvar o usuário:", error);

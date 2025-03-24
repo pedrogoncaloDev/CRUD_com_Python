@@ -3,7 +3,8 @@
         <v-card>
             <v-card-title class="headline">Confirmar Exclusão</v-card-title>
             <v-card-text>
-                Tem certeza de que deseja deletar este usuário?
+                Tem certeza de que deseja deletar este usuário?<br>
+                {{ informationsUser.nome }} (ID: {{ informationsUser.id }})
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
@@ -21,10 +22,10 @@ import axios from 'axios';
     export default {
         props: {
             dialog: Boolean,
-            id_user: Number
+            informationsUser: Object
         },
 
-        emits: ['CloseModal'],
+        emits: ["CloseModal", "showMessageModal"],
 
         data() {
             return {
@@ -40,16 +41,14 @@ import axios from 'axios';
 
         methods: {
             confirmDelete() {
-                console.log(`${API_URL}/${this.id_user}`);
-
-                axios.delete(`${API_URL}/${this.id_user}`)
+                axios.delete(`${API_URL}/${this.informationsUser.id}`)
                     .then(() => {
-                        console.log("Usuário deletado com sucesso!");
-                        this.$emit('CloseModal');
+                        this.$emit("CloseModal");
+                        this.$emit("showMessageModal", "Sucesso", "Usuário deletado com sucesso!");
                     })
                     .catch((error) => {
                         console.error("Erro ao deletar o usuário:", error);
-                        this.$emit('CloseModal');
+                        this.$emit("showMessageModal", "Erro", "Erro ao deletar o usuário!");
                     });
             }
         }
