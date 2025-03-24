@@ -37,7 +37,7 @@ class Users:
         try:
             with self.connect() as conn:
                 with conn.cursor() as cur:
-                    cur.execute("SELECT * FROM usuarios order by id")
+                    cur.execute("SELECT * FROM usuarios")
 
                     columns = [desc[0] for desc in cur.description]  # Obtém os nomes das colunas
                     users = [dict(zip(columns, line)) for line in cur.fetchall()]  # Converte cada linha em um dicionário
