@@ -112,7 +112,7 @@ export default {
       headers: [
         { title: "Ações" },
         { title: "ID", key: "id" },
-        { title: "Nome", key: "nome" },
+        { title: "Nome Completo", key: "nome" },
         { title: "Email", key: "email" },
         { title: "Senha", key: "senha" },
         { title: "Data de Criação", key: "data_criacao" },
