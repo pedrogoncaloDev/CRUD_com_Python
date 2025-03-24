@@ -1,11 +1,10 @@
 <template>
   <v-container fluid class="pa-4">
     <v-text-field
-      class="mx-3 placeholder-light"
       label="Pesquisar"
       clearable
       v-model="search"
-      color="primary"
+      class="custom-search-field"
     ></v-text-field>
 
     <v-data-table
@@ -211,7 +210,12 @@ export default {
   white-space: nowrap;
 }
 
-.placeholder-light ::v-deep(.v-input__control::placeholder) {
-  color: rgba(255, 255, 255, 0.6);
+.custom-search-field {
+  color: white !important;
+  background-color: #1E1E1E !important;
+}
+
+.custom-search-field .v-input__slot, .custom-search-field .v-label, .custom-search-field .v-input__icon--clear .v-icon  {
+  background-color: #1E1E1E !important;
 }
 </style>
