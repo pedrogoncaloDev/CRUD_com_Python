@@ -81,13 +81,12 @@
     @showMessageModal="showMessageModal"
   />
 
-  <v-snackbar :color="messageModal.color" v-model="messageModal.dialog" max-width="500" :persistent="true" timer="true" timeout="4000">
-    <v-card-title class="text-h5">{{ messageModal.title }}</v-card-title>
-    <v-card-text>{{ messageModal.message }}</v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
+  <v-snackbar :color="messageModal.color" v-model="messageModal.dialog" :persistent="true" timer="true" timeout="4000">
+    {{ messageModal.message }}
+
+    <template v-slot:actions>
       <v-btn text @click="messageModal.dialog = false;">Fechar</v-btn>
-    </v-card-actions>
+    </template>
   </v-snackbar>
 </template>
 
@@ -127,7 +126,6 @@ export default {
       ShowModalDeleteUser: false,
       messageModal: {
         dialog: false,
-        title: "",
         message: "",
         color: ""
       },
@@ -195,11 +193,10 @@ export default {
       this.ShowModalDeleteUser = true;
     },
 
-    showMessageModal(title, message) {
-      this.messageModal.title = title;
+    showMessageModal(status, message) {
       this.messageModal.message = message;
       this.messageModal.dialog = true;
-      this.messageModal.color = title === "Sucesso" ? "success" : "error";
+      this.messageModal.color = status === "Sucesso" ? "success" : "error";
     },
   },
 };

@@ -23,10 +23,10 @@
                             ></v-text-field>
                         </v-col>
                         <v-col cols="12">
-                            <v-text-field v-model="user.data_criacao" label="Data de criação" :disabled="true"></v-text-field>
+                            <span><strong>Data de criação:</strong> {{ formatDate(user.data_criacao) }}</span>
                         </v-col>
                         <v-col cols="12">
-                            <v-text-field v-model="user.data_atualizacao" label="Data de atualização" :disabled="true"></v-text-field>
+                            <span><strong>Data de atualização:</strong> {{ formatDate(user.data_atualizacao) }}</span>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { API_URL } from '../utils';
+import { API_URL, formatDate } from '../utils';
 import axios from 'axios';
 
 export default {
@@ -71,6 +71,10 @@ export default {
     },
 
     methods: {
+        formatDate(dateString) {
+            return formatDate(dateString);
+        },
+
         CloseModal() {
             this.$emit('CloseModal');
         },
