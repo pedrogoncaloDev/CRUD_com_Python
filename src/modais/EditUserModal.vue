@@ -34,7 +34,7 @@
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="CloseModal()">Cancelar</v-btn>
-                <v-btn color="blue darken-1" text @click="EditUser()">Salvar</v-btn>
+                <v-btn color="blue darken-1" text @click="EditUser()" :disabled="JSON.stringify(user) === JSON.stringify(informationsUser)">Salvar</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -80,6 +80,10 @@ export default {
         },
 
         async EditUser() {
+            if (JSON.stringify(this.user) === JSON.stringify(this.informationsUser)){
+                return
+            }
+
             try {
                 this.user.data_atualizacao = new Date().toISOString();
 
