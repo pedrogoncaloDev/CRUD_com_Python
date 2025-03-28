@@ -1,12 +1,5 @@
 <template>
   <v-container fluid class="pa-4">
-    <v-text-field
-      label="Pesquisar"
-      clearable
-      v-model="search"
-      class="custom-search-field"
-    ></v-text-field>
-
     <v-data-table
       :headers="headers"
       :items="filteredUsers"
@@ -14,13 +7,37 @@
       items-per-page-text="Itens por página"
       class="elevation-1"
       items-per-page="10"
+      item-value="id"
       dark
     >
       <template v-slot:no-data>
         <v-card-text>
-          Nenhum usuário cadastrado
+          Nenhum usuário encontrado
         </v-card-text>
       </template>
+
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title class="d-flex align-start">Usuários</v-toolbar-title>
+          <v-text-field
+            v-model="search"
+            label="Pesquisar"
+            density="default"
+            variant="underlined"
+            validateOn="blur"
+            color="primary"
+            max-width="400"
+            class="mt-4"
+            outlined
+            clearable
+          ></v-text-field>
+
+          <v-btn icon @click="GetUsers()" class="ml-2">
+            <v-icon>mdi-reload</v-icon>
+          </v-btn>
+        </v-toolbar>
+      </template>
+
       <template v-slot:item="{ item }">
         <tr>
           <td>
