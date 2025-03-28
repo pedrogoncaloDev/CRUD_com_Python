@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="localDialog" max-width="500px" persistent="true">
+    <v-dialog v-model="localDialog" @keyup.esc="CloseModal()" @keyup.enter="EditUser()" max-width="500px" persistent="true">
         <v-card>
             <v-card-title>
                 <span class="headline">Editar Usuário - {{ informationsUser.nome }} (ID: {{ informationsUser.id }}) </span>

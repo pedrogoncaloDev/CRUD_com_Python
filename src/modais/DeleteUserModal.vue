@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="localDialog" max-width="500px" persistent="true">
+    <v-dialog v-model="localDialog" @keyup.esc="this.$emit('CloseModal')" @keyup.enter="confirmDelete()" max-width="500px" persistent="true">
         <v-card>
             <v-card-title class="headline">Confirmar Exclusão</v-card-title>
             <v-card-text>
@@ -8,7 +8,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="this.$emit('CloseModal');">Cancelar</v-btn>
+                <v-btn color="blue darken-1" text @click="this.$emit('CloseModal')">Cancelar</v-btn>
                 <v-btn color="red darken-1" text @click="confirmDelete()">Deletar</v-btn>
             </v-card-actions>
         </v-card>
