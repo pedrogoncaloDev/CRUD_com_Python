@@ -1,34 +1,48 @@
 <template>
-    <v-dialog v-model="localDialog" @keyup.esc="CloseModal()" @keyup.enter="CreateUser()" max-width="500px" persistent="true">
+    <v-dialog v-model="localDialog" @keyup.esc="CloseModal()" max-width="500px" persistent="true">
         <v-card>
             <v-card-title>
                 <span class="headline">Cadastrar Novo Usuário</span>
             </v-card-title>
             <v-card-text>
                 <v-container>
-                    <v-row>
-                        <v-col cols="12">
-                            <v-text-field v-model="newUser.nome" label="Nome Completo" required></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-text-field v-model="newUser.email" label="Email" required></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-text-field
-                                v-model="newUser.senha"
-                                :append-icon="ShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                :type="ShowPassword ? 'text' : 'password'"
-                                label="Senha"
-                                @click:append="ShowPassword = !ShowPassword"
-                            ></v-text-field>
-                        </v-col>
-                    </v-row>
+                    <v-form ref="form" @submit.prevent="handleSubmit">
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field
+                                    v-model="newUser.nome"
+                                    label="Nome Completo"
+                                    :rules="[rules.required]"
+                                    required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-text-field
+                                    v-model="newUser.email"
+                                    label="Email"
+                                    :rules="[rules.required, rules.email]"
+                                    required
+                                ></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-text-field
+                                    v-model="newUser.senha"
+                                    :append-icon="ShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                    :type="ShowPassword ? 'text' : 'password'"
+                                    label="Senha"
+                                    :rules="[rules.required]"
+                                    required
+                                    @click:append="ShowPassword = !ShowPassword"
+                                ></v-text-field>
+                            </v-col>
+                        </v-row>
+                    </v-form>
                 </v-container>
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="CloseModal()">Cancelar</v-btn>
-                <v-btn color="blue darken-1" text @click="CreateUser()">Salvar</v-btn>
+                <v-btn color="blue darken-1" text type="submit" form="form" @click="handleSubmit()">Salvar</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -47,13 +61,16 @@ export default {
 
     data() {
         return {
-            newUser: {
-                name: '',
-                email: '',
-                password: ''
-            },
+            newUser: { nome: '', email: '', senha: '', data_criacao: null, data_atualizacao: null },
             ShowPassword: false,
-            localDialog: this.dialog
+            localDialog: this.dialog,
+            rules: {
+                required: value => !!value || 'Este campo é obrigatório.',
+                email: value => {
+                    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return pattern.test(value) || 'E-mail inválido.';
+                }
+            }
         };
     },
 
@@ -66,14 +83,23 @@ export default {
     methods: {
         CloseModal() {
             this.$emit('CloseModal');
-            this.newUser = { name: '', email: '', password: '' };
+            this.newUser = { nome: '', email: '', senha: '', data_criacao: null, data_atualizacao: null };
         },
+
+        async handleSubmit() {
+            const form_information = this.$refs.form.validate(); // Valida os campos do formulário
+
+            if (!form_information) {
+                this.$emit("showMessageModal", "Erro", "Preencha todos os campos obrigatórios corretamente.");
+                return;
+            }
+
+            await this.CreateUser();
+        },
+
 
         async CreateUser() {
             try {
-                this.newUser.data_criacao = new Date().toISOString();
-                this.newUser.data_atualizacao = new Date().toISOString();
-
                 const response = await axios.post(API_URL, this.newUser);
 
                 if (response.status === 201) {
