@@ -24,10 +24,37 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 ### 🔧 Instalação
 
 
-## 🚀 Rotas da API
+## Estrutura do projeto
+├── backend/                  # Backend Flask<br>
+│   ├── __pycache__/<br>
+│   ├── api.py                # Rotas da API<br>
+│   ├── config_db.py          # Configurações de conexão com o banco de dados<br>
+│   ├── database.py           # Conexão com DB<br>
+│   ├── users.py              # Arquivo com a classe de usuario<br>
+│   ├── utils.py              # Utilitários do back-end<br>
+│<br>
+├── frontend/                 # Frontend Vue.js<br>
+│   ├── public/<br>
+│   ├── src/<br>
+│   │   ├── components/<br>
+│   │   │   ├── modais/<br>
+│   │   │   │   ├── AddUserModal.vue  # Modal para adicionar um usuário <br>
+│   │   │   │   ├── EditUserModal.vue  # Modal para editar o usuário <br>
+│   │   │   │   └── DeleteUserModal.vue # Modal para deletar um usuário <br>
+│   │   │   └── Home.vue # Página com a tabela para realizar o CRUD <br>
+│   │   ├── utils.js # Utilitários do front-end<br>
+│   │   ├── App.vue<br>
+│   │   └── main.js<br>
+│   ├── babel.config.js<br>
+│   ├── vue.config.js<br>
+│   ├── package.json<br>
+│   └── package-lock.json<br>
+│
+├── .gitignore<br>
+└── README.md<br>
 
-## 🚀 Estrutura do projeto
-## Endpoints da API
+
+## Rotas da API
 
 | Método | Endpoint       | Body (JSON)           | Ação                     |
 |--------|----------------|-----------------------|--------------------------|
