@@ -37,11 +37,11 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 │   ├── public/<br>
 │   ├── src/<br>
 │   │   ├── components/<br>
-│   │   │   ├── modais/<br>
-│   │   │   │   ├── AddUserModal.vue  # Modal para adicionar um usuário <br>
-│   │   │   │   ├── EditUserModal.vue  # Modal para editar o usuário <br>
-│   │   │   │   └── DeleteUserModal.vue # Modal para deletar um usuário <br>
 │   │   │   └── Home.vue # Página com a tabela para realizar o CRUD <br>
+│   │   ├── modais/<br>
+│   │   │   ├── AddUserModal.vue  # Modal para adicionar um usuário <br>
+│   │   │   ├── EditUserModal.vue  # Modal para editar o usuário <br>
+│   │   │   ├── DeleteUserModal.vue # Modal para deletar um usuário <br>
 │   │   ├── utils.js # Utilitários do front-end<br>
 │   │   ├── App.vue<br>
 │   │   └── main.js<br>
