@@ -1,13 +1,17 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from users import Users
-from config_db import conn_info
+from config_db import conn_database_crud_com_python
+from database import create_database, create_table_users
 from utils import date_to_string
 import json
 
 app = Flask(__name__)
 CORS(app)  # Habilita o CORS
-users = Users(conn_info)
+users = Users(conn_database_crud_com_python)
+
+create_database()
+create_table_users()
 
 # Rotas
 @app.route('/users', methods=['POST'])

@@ -4,11 +4,11 @@ from utils import is_valid_email
 import pytz 
 
 class Users:
-    def __init__(self, conn_info):
-        self.conn_info = conn_info
+    def __init__(self, conn_database_crud_com_python):
+        self.conn_database_crud_com_python = conn_database_crud_com_python
     
     def connect(self):
-        return psycopg2.connect(**self.conn_info)
+        return psycopg2.connect(**self.conn_database_crud_com_python)
     
     def create_user(self, user_data):
         try:
