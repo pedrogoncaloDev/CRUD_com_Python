@@ -18,13 +18,22 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 - Node.js (v20.12.2+)
 - Python (v3.13.2+)
 - npm (v10.7.0+)
-- pip (v24.3.1 +)
+- pip (v24.3.1+)
 - PostgreSQL 16
 
 ### 🔧 Instalação
 
-<!-- #### 1. Backend (Flask)
-```bash
-cd backend
-pip install -r requirements.txt
-python app.py -->
+
+## 🚀 Rotas da API
+
+## 🚀 Estrutura do projeto
+## Endpoints da API
+
+| Método | Endpoint       | Body (JSON)           | Ação                     |
+|--------|----------------|-----------------------|--------------------------|
+| GET    | `/users`       | -                     | Lista todos usuários     |
+| GET    | `/users/{id}`  | -                     | Retorna um usuário       |
+| POST   | `/users`       | `{"id" : 1,"nome" : "teste","email" : "teste@email.com","senha" : "senha123"}`  | Cria novo usuário        |
+| PUT    | `/users/{id}`  | `{"nome" : "Novo Nome","email" : "teste1111@email.com.br","senha" : "senha123"}`  | Atualiza usuário         |
+| DELETE | `/users/{id}`  | -                     | Remove usuário           |
+
