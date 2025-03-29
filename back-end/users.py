@@ -98,11 +98,11 @@ class Users:
         if not user.get('nome') or not user['nome'].strip():
             return {"success": False, "message": "O campo 'nome' não pode estar vazio."}
 
-        if not user.get('senha') or not user['senha'].strip():
-            return {"success": False, "message": "O campo 'senha' não pode estar vazio."}
-
         if not user.get('email') or not is_valid_email(user['email']):
             return {"success": False, "message": "O campo 'email' é inválido."}
+
+        if not user.get('senha') or not user['senha'].strip():
+            return {"success": False, "message": "O campo 'senha' não pode estar vazio."}
 
         # Se todas as validações passarem
         return {"success": True, "message": "Validação bem-sucedida."}

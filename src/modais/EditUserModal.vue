@@ -123,8 +123,10 @@ export default {
                     this.$emit("showMessageModal", "Erro", "Erro ao editar o usuário!");
                 }
             } catch (error) {
+                const message = error.response.data.error === undefined ? error.message : error.response.data.error;
+
                 console.error("Erro ao salvar o usuário:", error);
-                this.$emit("showMessageModal", "Erro", error.message);
+                this.$emit("showMessageModal", "Erro", message);
             }
         },
     }
