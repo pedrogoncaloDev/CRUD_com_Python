@@ -19,6 +19,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 - Python (v3.13.2+)
 - npm (v10.7.0+)
 - pip (v24.3.1 +)
+- PostgreSQL 16
 
 ### 🔧 Instalação
 
