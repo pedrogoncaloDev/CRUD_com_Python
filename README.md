@@ -23,6 +23,14 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 
 ### 🔧 Instalação
 
+## Rotas da API
+
+| Método | Endpoint       | Body (JSON)           | Ação                     |
+|--------|----------------|-----------------------|--------------------------|
+| GET    | `/users`       | -                     | Lista todos usuários     |
+| POST   | `/users`       | `{"id" : 1,"nome" : "teste","email" : "teste@email.com","senha" : "senha123"}`  | Cria novo usuário        |
+| PUT    | `/users/{id}`  | `{"nome" : "Novo Nome","email" : "teste1111@email.com.br","senha" : "senha123"}`  | Atualiza usuário         |
+| DELETE | `/users/{id}`  | -                     | Remove usuário           |
 
 ## Estrutura do projeto
 ├── backend/                  # Backend Flask<br>
@@ -52,14 +60,3 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 │
 ├── .gitignore<br>
 └── README.md<br>
-
-
-## Rotas da API
-
-| Método | Endpoint       | Body (JSON)           | Ação                     |
-|--------|----------------|-----------------------|--------------------------|
-| GET    | `/users`       | -                     | Lista todos usuários     |
-| POST   | `/users`       | `{"id" : 1,"nome" : "teste","email" : "teste@email.com","senha" : "senha123"}`  | Cria novo usuário        |
-| PUT    | `/users/{id}`  | `{"nome" : "Novo Nome","email" : "teste1111@email.com.br","senha" : "senha123"}`  | Atualiza usuário         |
-| DELETE | `/users/{id}`  | -                     | Remove usuário           |
-
