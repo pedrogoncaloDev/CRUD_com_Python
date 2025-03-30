@@ -29,7 +29,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 │   ├── __pycache__/<br>
 │   ├── api.py                # Rotas da API<br>
 │   ├── config_db.py          # Configurações de conexão com o banco de dados<br>
-│   ├── database.py           # Conexão com DB<br>
+│   ├── database.py           # Arquivo com os métodos para criar o DB e a tabela de usuários <br>
 │   ├── users.py              # Arquivo com a classe de usuario<br>
 │   ├── utils.py              # Utilitários do back-end<br>
 │<br>
