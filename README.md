@@ -24,9 +24,9 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 ### 🔧 Instalação
 
 1. **Clone o repositório**:
-   ```bash
-   git clone https://github.com/Pedro-Gonsalo/CRUD-com-Python.git
-   cd CRUD_com_python
+    ```bash
+    git clone https://github.com/Pedro-Gonsalo/CRUD-com-Python.git
+    cd CRUD_com_python
 
 2. **Instale as dependências do frontend**:
     ```bash
@@ -34,7 +34,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
     npm install
 
 3. **Instale as dependências do backend: Execute os seguintes comandos para instalar as dependências necessárias no Python:**:
-   ```bash
+    ```bash
     pip install psycopg2
     pip install flask
     pip install flask-cors
@@ -65,7 +65,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
     
     2. *No backend, execute o arquivo api.py:*
         ```bash
-            python api.py
+        python api.py
 
 ## Rotas da API
 
