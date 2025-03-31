@@ -42,7 +42,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 
 4. **Configure o arquivo config_db.py: No diretório backend, edite o arquivo config_db.py com as configurações do seu PostgreSQL 16. Exemplo:**:
     ```bash
-        conn_info = {
+    conn_info = {
         "host": "localhost",
         "database": "crud_com_python",
         "user": "seu_usuario",
