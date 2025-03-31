@@ -23,6 +23,49 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 
 ### 🔧 Instalação
 
+1. **Clone o repositório**:
+   ```bash
+   git clone https://github.com/Pedro-Gonsalo/CRUD-com-Python.git
+   cd CRUD_com_python
+
+2. **Instale as dependências do frontend**:
+    ```bash
+    cd frontend
+    npm install
+
+3. **Instale as dependências do backend: Execute os seguintes comandos para instalar as dependências necessárias no Python:**:
+   ```bash
+    pip install psycopg2
+    pip install flask
+    pip install flask-cors
+    pip install pytz
+
+4. **Configure o arquivo config_db.py: No diretório backend, edite o arquivo config_db.py com as configurações do seu PostgreSQL 16. Exemplo:**:
+    ```bash
+        conn_info = {
+        "host": "localhost",
+        "database": "crud_com_python",
+        "user": "seu_usuario",
+        "password": "sua_senha",
+        "port": "5432"
+    }
+
+    conn_database_crud_com_python = {
+        "host": "localhost",
+        "database": "crud_com_python",
+        "user": "seu_usuario",
+        "password": "sua_senha",
+        "port": "5432"
+    }
+
+5. **Inicie o projeto:**
+    1. *No frontend, execute:*
+        ```bash
+        npm run serve
+    
+    2. *No backend, execute o arquivo api.py:*
+        ```bash
+            python api.py
 
 ## Estrutura do projeto
 ├── backend/                  # Backend Flask<br>
