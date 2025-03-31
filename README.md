@@ -42,21 +42,24 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 
 4. **Configure o arquivo config_db.py: No diretório backend, edite o arquivo config_db.py com as configurações do seu PostgreSQL 16. Exemplo:**:
     ```bash
-    conn_info = {
-        "host": "localhost",
-        "database": "crud_com_python",
-        "user": "seu_usuario",
-        "password": "sua_senha",
-        "port": "5432"
+    conn_database_crud_com_python = {
+        "dbname": "crud_com_python",
+        "user":"seu usuario",
+        "password": "sua senha",
+        "host": "seu host",
+        "port": 0
     }
 
-    conn_database_crud_com_python = {
-        "host": "localhost",
-        "database": "crud_com_python",
-        "user": "seu_usuario",
-        "password": "sua_senha",
-        "port": "5432"
+    conn_info = {
+        "dbname": "postgres",
+        "user": "seu usuario",
+        "password": "sua senha",
+        "host": "seu host",
+        "port": 0, 
     }
+
+# usando para estabelecer a conexão com o banco de dados PostgreSQL
+
 
 5. **Inicie o projeto:**
     1. *No frontend, execute:*
