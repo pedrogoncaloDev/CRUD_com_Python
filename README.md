@@ -67,12 +67,21 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
         ```bash
             python api.py
 
+## Rotas da API
+
+| Método | Endpoint       | Body (JSON)           | Ação                     |
+|--------|----------------|-----------------------|--------------------------|
+| GET    | `/users`       | -                     | Lista todos usuários     |
+| POST   | `/users`       | `{"nome" : "Novo Nome","email" : "teste1111@email.com.br","senha" : "senha123"}`  | Cria novo usuário        |
+| PUT    | `/users/`      | `{"id" : 1,"nome" : "teste","email" : "teste@email.com","senha" : "senha123"}`  | Atualiza usuário         |
+| DELETE | `/users/{id}`  | -                     | Remove usuário           |
+
 ## Estrutura do projeto
 ├── backend/                  # Backend Flask<br>
 │   ├── __pycache__/<br>
 │   ├── api.py                # Rotas da API<br>
 │   ├── config_db.py          # Configurações de conexão com o banco de dados<br>
-│   ├── database.py           # Conexão com DB<br>
+│   ├── database.py           # Arquivo com os métodos para criar o DB e a tabela de usuários <br>
 │   ├── users.py              # Arquivo com a classe de usuario<br>
 │   ├── utils.py              # Utilitários do back-end<br>
 │<br>
@@ -95,14 +104,3 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 │
 ├── .gitignore<br>
 └── README.md<br>
-
-
-## Rotas da API
-
-| Método | Endpoint       | Body (JSON)           | Ação                     |
-|--------|----------------|-----------------------|--------------------------|
-| GET    | `/users`       | -                     | Lista todos usuários     |
-| POST   | `/users`       | `{"id" : 1,"nome" : "teste","email" : "teste@email.com","senha" : "senha123"}`  | Cria novo usuário        |
-| PUT    | `/users/{id}`  | `{"nome" : "Novo Nome","email" : "teste1111@email.com.br","senha" : "senha123"}`  | Atualiza usuário         |
-| DELETE | `/users/{id}`  | -                     | Remove usuário           |
-
