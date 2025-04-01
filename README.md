@@ -57,9 +57,6 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
         "port": 0, 
     }
 
-# usando para estabelecer a conexão com o banco de dados PostgreSQL
-
-
 5. **Inicie o projeto:**
     1. *No frontend, execute:*
         ```bash
