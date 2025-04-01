@@ -30,7 +30,6 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 
 2. **Instale as dependências do frontend**:
     ```bash
-    cd frontend
     npm install
 
 3. **Instale as dependências do backend: Execute os seguintes comandos para instalar as dependências necessárias no Python:**:
