@@ -31,19 +31,32 @@ def create_table_users():
 
         try:
             cur.execute("""
-                CREATE TABLE IF NOT EXISTS usuarios (
-                    id SERIAL PRIMARY KEY,
-                    nome VARCHAR(200) NOT NULL,
-                    email VARCHAR(150) UNIQUE NOT NULL,
-                    senha VARCHAR(100) NOT NULL,
-                    data_criacao TIMESTAMP,
-                    data_atualizacao TIMESTAMP
+                SELECT EXISTS (
+                    SELECT 1
+                    FROM information_schema.tables
+                    WHERE table_name = 'usuarios'
                 );
             """)
 
-            # Optei gerenciar manualmente os campos data_criacao e data_atualizacao via código Python ao invés de usar DEFAULT CURRENT_TIMESTAMP, como exercício prático de manipulação de datas e timestamps.
+            table_exists = cur.fetchone()[0]
 
-            print("Tabela 'usuarios' criada com sucesso.")
+            if table_exists:
+                print("A tabela 'usuarios' já existe.")
+            else:
+                # Optei gerenciar manualmente os campos data_criacao e data_atualizacao via código Python ao invés de usar DEFAULT CURRENT_TIMESTAMP, como exercício prático de manipulação de datas e timestamps.
+                cur.execute("""
+                    CREATE TABLE usuarios (
+                        id SERIAL PRIMARY KEY,
+                        nome VARCHAR(200) NOT NULL,
+                        email VARCHAR(150) UNIQUE NOT NULL,
+                        senha VARCHAR(100) NOT NULL,
+                        data_criacao TIMESTAMP,
+                        data_atualizacao TIMESTAMP
+                    );
+                """)
+
+                print("Tabela 'usuarios' criada com sucesso.")
+
         finally:
             cur.close()
             conn.close()
