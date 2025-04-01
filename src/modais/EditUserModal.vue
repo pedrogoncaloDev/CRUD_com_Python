@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="localDialog" @keyup.esc="CloseModal()" @keyup.enter="EditUser()" max-width="500px" :persistent="true">
+    <v-dialog v-model="localDialog" max-width="500px" :persistent="true">
         <v-card>
             <v-card-title>
                 <span class="headline">Editar Usuário - {{ informationsUser.nome }} (ID: {{ informationsUser.id }}) </span>
@@ -76,6 +76,14 @@ export default {
         };
     },
 
+    mounted() {
+        window.addEventListener('keydown', this.handleKeydown);
+    },
+
+    beforeUnmount() {
+        window.removeEventListener('keydown', this.handleKeydown);
+    },
+
     watch: {
         dialog(newVal) {
             this.localDialog = newVal;
@@ -93,6 +101,16 @@ export default {
 
         CloseModal() {
             this.$emit('CloseModal');
+        },
+
+        handleKeydown(event) {
+            if (event.key === 'Escape' && this.localDialog) {
+                this.CloseModal();
+            }
+
+            if (event.key === 'Enter' && this.localDialog) {
+                this.handleSubmit();
+            }
         },
 
         async handleSubmit() {

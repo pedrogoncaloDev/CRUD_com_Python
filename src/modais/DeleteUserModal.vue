@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="localDialog" @keyup.esc="this.$emit('CloseModal')" @keyup.enter="confirmDelete()" max-width="500px" :persistent="true">
+    <v-dialog v-model="localDialog" max-width="500px" :persistent="true">
         <v-card>
             <v-card-title class="headline">Confirmar Exclusão</v-card-title>
             <v-card-text>
@@ -39,6 +39,14 @@ import axios from 'axios';
             },
         },
 
+        mounted() {
+            window.addEventListener('keydown', this.handleKeydown);
+        },
+
+        beforeUnmount() {
+            window.removeEventListener('keydown', this.handleKeydown);
+        },
+
         methods: {
             confirmDelete() {
                 axios.delete(`${API_URL}/${this.informationsUser.id}`)
@@ -50,7 +58,17 @@ import axios from 'axios';
                         console.error("Erro ao deletar o usuário:", error);
                         this.$emit("showMessageModal", "Erro", "Erro ao deletar o usuário!");
                     });
-            }
+            },
+
+            handleKeydown(event) {
+                if (event.key === 'Escape' && this.localDialog) {
+                    this.$emit('CloseModal');
+                }
+
+                if (event.key === 'Enter' && this.localDialog) {
+                    this.confirmDelete();
+                }
+            },
         }
     };
 </script>

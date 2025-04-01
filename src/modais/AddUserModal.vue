@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="localDialog" @keyup.esc="CloseModal()" max-width="500px" :persistent="true">
+    <v-dialog v-model="localDialog" max-width="500px" :persistent="true">
         <v-card>
             <v-card-title>
                 <span class="headline">Cadastrar Novo Usuário</span>
@@ -80,6 +80,15 @@ export default {
         }
     },
 
+    mounted() {
+        window.addEventListener('keydown', this.handleKeydown);
+    },
+
+    beforeUnmount() {
+        window.removeEventListener('keydown', this.handleKeydown);
+    },
+
+
     methods: {
         CloseModal() {
             this.$emit('CloseModal');
@@ -97,6 +106,15 @@ export default {
             await this.CreateUser();
         },
 
+        handleKeydown(event) {
+            if (event.key === 'Escape' && this.localDialog) {
+                this.CloseModal();
+            }
+
+            if (event.key === 'Enter' && this.localDialog) {
+                this.CreateUser();
+            }
+        },
 
         async CreateUser() {
             try {
