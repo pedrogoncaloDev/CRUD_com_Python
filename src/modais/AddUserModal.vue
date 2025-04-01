@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="localDialog" @keyup.esc="CloseModal()" max-width="500px" persistent="true">
+    <v-dialog v-model="localDialog" @keyup.esc="CloseModal()" max-width="500px" :persistent="true">
         <v-card>
             <v-card-title>
                 <span class="headline">Cadastrar Novo Usuário</span>
