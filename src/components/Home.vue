@@ -40,7 +40,7 @@
 
       <template v-slot:item="{ item }">
         <tr>
-          <td>
+          <td class="action-buttons">
             <v-icon
               @click="EditUser(item)"
               icon="mdi mdi-file-edit-outline"
@@ -220,6 +220,13 @@ export default {
 </script>
 
 <style scoped>
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .text-nowrap {
   white-space: nowrap;
 }
