@@ -21,6 +21,7 @@
                                     :type="ShowPassword ? 'text' : 'password'"
                                     label="Senha"
                                     required
+                                    clearable
                                     @click:append="ShowPassword = !ShowPassword"
                                 ></v-text-field>
                             </v-col>

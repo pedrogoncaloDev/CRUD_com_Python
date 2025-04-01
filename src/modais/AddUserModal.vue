@@ -14,6 +14,7 @@
                                     label="Nome Completo"
                                     :rules="[rules.required]"
                                     required
+                                    clearable
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12">
@@ -22,6 +23,7 @@
                                     label="Email"
                                     :rules="[rules.required, rules.email]"
                                     required
+                                    clearable
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12">
@@ -32,6 +34,7 @@
                                     label="Senha"
                                     :rules="[rules.required]"
                                     required
+                                    clearable
                                     @click:append="ShowPassword = !ShowPassword"
                                 ></v-text-field>
                             </v-col>
