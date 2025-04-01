@@ -9,10 +9,10 @@
                     <v-form ref="form" @submit.prevent="handleSubmit">
                         <v-row>
                             <v-col cols="12">
-                                <v-text-field v-model="user.nome" label="Nome Completo" required clearable></v-text-field>
+                                <v-text-field v-model="user.nome" :rules="[rules.required]" label="Nome Completo" required clearable></v-text-field>
                             </v-col>
                             <v-col cols="12">
-                                <v-text-field v-model="user.email" label="Email" required clearable></v-text-field>
+                                <v-text-field v-model="user.email"  :rules="[rules.required, rules.email]" label="Email" required clearable></v-text-field>
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field
@@ -20,6 +20,7 @@
                                     :append-icon="ShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
                                     :type="ShowPassword ? 'text' : 'password'"
                                     label="Senha"
+                                    :rules="[rules.required]"
                                     required
                                     clearable
                                     @click:append="ShowPassword = !ShowPassword"
