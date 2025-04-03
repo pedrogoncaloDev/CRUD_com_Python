@@ -54,7 +54,7 @@
 <script>
 import { API_URL, formatDate } from '../utils';
 import axios from 'axios';
-import { validationRules } from '../validationvalidationRules';
+import { validationRules } from '../validationRules';
 
 export default {
     props: {

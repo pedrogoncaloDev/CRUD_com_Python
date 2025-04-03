@@ -3,6 +3,8 @@
     <v-data-table
       :headers="headers"
       :items="filteredUsers"
+      :loading="isLoading"
+      loading-text="Carregando usuários..."
       no-data-text="Nenhum usuário cadastrado"
       items-per-page-text="Itens por página"
       class="elevation-1"
@@ -146,7 +148,8 @@ export default {
         message: "",
         color: ""
       },
-      IsOnAPI: false
+      IsOnAPI: false,
+      isLoading: false,
     };
   },
 
@@ -188,6 +191,8 @@ export default {
     },
 
     GetUsers() {
+      this.isLoading = true;
+
       axios
         .get(API_URL)
         .then((response) => {
@@ -195,8 +200,15 @@ export default {
           this.IsOnAPI = true;
         })
         .catch((error) => {
-          console.error("Houve um erro ao buscar os usuários:", error);
-          this.showMessageModal("Erro", "Houve um erro ao buscar os usuários!");
+          console.error("Erro ao buscar usuários:", error);
+
+          console.log(error);
+
+          const errorMessage = error.response?.data?.message || "Erro ao buscar os usuários.";
+          this.showMessageModal("Erro", errorMessage);
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
 
