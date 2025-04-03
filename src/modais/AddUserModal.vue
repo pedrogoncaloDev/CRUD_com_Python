@@ -54,6 +54,7 @@
 <script>
 import { API_URL } from '../utils';
 import axios from 'axios';
+import { validationRules } from '../validationvalidationRules';
 
 export default {
     props: {
@@ -67,13 +68,7 @@ export default {
             newUser: { nome: '', email: '', senha: '', data_criacao: null, data_atualizacao: null },
             ShowPassword: false,
             localDialog: this.dialog,
-            rules: {
-                required: value => !!value || 'Este campo é obrigatório.',
-                email: value => {
-                    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    return pattern.test(value) || 'E-mail inválido.';
-                }
-            }
+            rules: validationRules,
         };
     },
 

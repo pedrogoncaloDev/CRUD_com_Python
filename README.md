@@ -95,6 +95,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 │   │   │   ├── EditUserModal.vue  # Modal para editar o usuário <br>
 │   │   │   ├── DeleteUserModal.vue # Modal para deletar um usuário <br>
 │   │   ├── utils.js # Utilitários do front-end<br>
+│   │   ├── validationRules.js # Arquivo com as validações para criar / editar um usuário <br>
 │   │   ├── App.vue<br>
 │   │   └── main.js<br>
 │   ├── babel.config.js<br>
