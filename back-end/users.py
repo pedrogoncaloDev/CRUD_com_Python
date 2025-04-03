@@ -2,6 +2,7 @@ import psycopg2
 from datetime import datetime
 from utils import is_valid_email
 import pytz 
+from bcrypt import hashpw, checkpw, gensalt
 
 class Users:
     def __init__(self, conn_database_crud_com_python):
@@ -23,13 +24,14 @@ class Users:
                     if cur.fetchone():
                         return {"success": False, "message": "Email já utilizado por outro usuário."}
                     
+                    hashed_password = hashpw(user_data['senha'].encode('utf-8'), gensalt())
                     data_now = datetime.utcnow().replace(tzinfo=pytz.UTC)
             
                     cur.execute("""
                                     INSERT INTO usuarios (nome, email, senha, data_criacao, data_atualizacao)
                                     VALUES (%s, %s, %s, %s, %s) RETURNING id;
                                 """, 
-                                (user_data['nome'], user_data['email'], user_data['senha'], data_now, data_now))
+                                (user_data['nome'], user_data['email'], hashed_password, data_now, data_now))
                     new_id = cur.fetchone()[0]
 
                     return {"success": True, "message": f"Usuário inserido com ID: {new_id}"}

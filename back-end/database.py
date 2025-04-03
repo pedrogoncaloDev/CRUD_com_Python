@@ -49,7 +49,7 @@ def create_table_users():
                         id SERIAL PRIMARY KEY,
                         nome VARCHAR(200) NOT NULL,
                         email VARCHAR(150) UNIQUE NOT NULL,
-                        senha VARCHAR(100) NOT NULL,
+                        senha TEXT NOT NULL,
                         data_criacao TIMESTAMP,
                         data_atualizacao TIMESTAMP
                     );
