@@ -62,7 +62,7 @@
           <td>{{ item.id }}</td>
           <td>{{ item.nome }}</td>
           <td>{{ item.email }}</td>
-          <td>{{ item.senha }}</td>
+          <td>{{ item.telefone }}</td>
           <td>{{ formatDate(item.data_criacao) }}</td>
           <td>{{ formatDate(item.data_atualizacao) }}</td>
         </tr>
@@ -132,7 +132,7 @@ export default {
         { title: "ID", key: "id" },
         { title: "Nome Completo", key: "nome" },
         { title: "Email", key: "email" },
-        { title: "Senha", key: "senha" },
+        { title: "telefone", key: "telefone" },
         { title: "Data de Criação", key: "data_criacao" },
         { title: "Data de Atualização", key: "data_atualizacao" },
       ],
@@ -164,7 +164,7 @@ export default {
         return (
           user.nome.toLowerCase().includes(searchLower) ||
           user.email.toLowerCase().includes(searchLower) ||
-          user.senha.toLowerCase().includes(searchLower) ||
+          user.telefone.toLowerCase().includes(searchLower) ||
           user.id.toString().includes(searchLower) ||
           formatDate(user.data_criacao).includes(searchLower) ||
           formatDate(user.data_atualizacao).includes(searchLower)

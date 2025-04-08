@@ -16,14 +16,11 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field
-                                    v-model="user.senha"
-                                    :append-icon="ShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                    :type="ShowPassword ? 'text' : 'password'"
-                                    label="Senha"
-                                    :rules="[rules.required]"
+                                    v-model="user.telefone"
+                                    label="Telefone - (XX) XXXXX-XXXX"
+                                    :rules="[rules.required, rules.telefone]"
                                     required
                                     clearable
-                                    @click:append="ShowPassword = !ShowPassword"
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12">
@@ -67,7 +64,6 @@ export default {
     data() {
         return {
             user: {},
-            ShowPassword: false,
             localDialog: this.dialog,
             rules: validationRules,
         };

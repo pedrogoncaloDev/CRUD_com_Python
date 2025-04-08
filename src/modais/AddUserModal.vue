@@ -28,14 +28,12 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field
-                                    v-model="newUser.senha"
-                                    :append-icon="ShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                    :type="ShowPassword ? 'text' : 'password'"
-                                    label="Senha"
-                                    :rules="[rules.required]"
+                                    v-model="newUser.telefone"
+                                    type="number"
+                                    label="Telefone - (XX) XXXXX-XXXX"
+                                    :rules="[rules.required, rules.telefone]"
                                     required
                                     clearable
-                                    @click:append="ShowPassword = !ShowPassword"
                                 ></v-text-field>
                             </v-col>
                         </v-row>
@@ -65,8 +63,7 @@ export default {
 
     data() {
         return {
-            newUser: { nome: '', email: '', senha: '', data_criacao: null, data_atualizacao: null },
-            ShowPassword: false,
+            newUser: { nome: '', email: '', telefone: '', data_criacao: null, data_atualizacao: null },
             localDialog: this.dialog,
             rules: validationRules,
         };
@@ -90,7 +87,7 @@ export default {
     methods: {
         CloseModal() {
             this.$emit('CloseModal');
-            this.newUser = { nome: '', email: '', senha: '', data_criacao: null, data_atualizacao: null };
+            this.newUser = { nome: '', email: '', telefone: '', data_criacao: null, data_atualizacao: null };
         },
 
         async handleSubmit() {
