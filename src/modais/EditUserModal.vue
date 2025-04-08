@@ -18,8 +18,7 @@
                                 <v-text-field
                                     v-model="user.telefone"
                                     label="Telefone - (XX) XXXXX-XXXX"
-                                    :rules="[rules.required, rules.telefone]"
-                                    required
+                                    :rules="[rules.telefone]"
                                     clearable
                                 ></v-text-field>
                             </v-col>

@@ -115,12 +115,11 @@ class Users:
 
         if not user.get('email') or not is_valid_email(user['email']):
             return {"success": False, "message": "O campo 'email' é inválido."}
-
-        if not user.get('telefone') or not str(user['telefone']).strip():
-            return {"success": False, "message": "O campo 'telefone' não pode estar vazio."}
         
         telefone_limpo = ''.join(filter(str.isdigit, str(user['telefone'])))
-        if len(telefone_limpo) != 11:
-            return {"success": False, "message": "Telefone deve conter 11 dígitos (incluindo DDD)."}
+
+        if len(telefone_limpo) != 0:
+            if len(telefone_limpo) != 11:
+                return {"success": False, "message": "Telefone deve conter 11 dígitos (incluindo DDD)."}
 
         return {"success": True, "message": "Validação bem-sucedida."}

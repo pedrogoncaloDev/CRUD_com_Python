@@ -31,8 +31,7 @@
                                     v-model="newUser.telefone"
                                     type="number"
                                     label="Telefone - (XX) XXXXX-XXXX"
-                                    :rules="[rules.required, rules.telefone]"
-                                    required
+                                    :rules="[rules.telefone]"
                                     clearable
                                 ></v-text-field>
                             </v-col>
