@@ -38,7 +38,6 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
     pip install flask
     pip install flask-cors
     pip install pytz
-    pip install cryptography
 
 4. **Configure o arquivo config_db.py: No diretório backend, edite o arquivo config_db.py com as configurações do seu PostgreSQL 16. Exemplo:**:
     ```bash
