@@ -4,7 +4,7 @@ export function formatDate(isoString) {
     const date = new Date(isoString);
 
     const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam do zero
+    const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -14,16 +14,25 @@ export function formatDate(isoString) {
 }
 
 export function formatPhone(limitedDigits) {
-    const digits = limitedDigits.replace(/\D/g, '');
-    
-    let formatted = '';
+    const digits = limitedDigits.replace(/\D/g, ''); // Remove não numéricos
     const length = digits.length;
     
-    if (length >= 1) formatted += `(${digits.substring(0, 2)}`;
+    let formatted = '';
+    
+    // Adiciona DDD (##)
+    if (length >= 1) {
+        formatted += `(${digits.substring(0, 2)}`;
+    }
+    
+    // Formata o restante do número
     if (length > 2) {
-        // Limita a 8 ou 9 dígitos após o DDD (opcional)
-        const maxDigits = 9; // Ou 8, dependendo do padrão
-        formatted += `) ${digits.substring(2, 2 + maxDigits)}`;
+        if (length === 10) { // (##) ####-####
+            formatted += `) ${digits.substring(2, 6)}-${digits.substring(6)}`;
+        } else if (length === 11) { // (##) #####-####
+            formatted += `) ${digits.substring(2, 7)}-${digits.substring(7)}`;
+        } else { // Outros casos (formata parcialmente)
+            formatted += `) ${digits.substring(2)}`;
+        }
     }
     
     return formatted;
