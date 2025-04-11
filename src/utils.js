@@ -14,6 +14,8 @@ export function formatDate(isoString) {
 }
 
 export function formatPhone(limitedDigits) {
+    if (!limitedDigits) return ''; 
+
     const digits = limitedDigits.replace(/\D/g, ''); // Remove não numéricos
     const length = digits.length;
     

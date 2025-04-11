@@ -1,5 +1,10 @@
 <template>
   <v-container fluid class="pa-4">
+    <AddUserModal
+      @GetUsers="GetUsers"
+      @showMessageModal="showMessageModal"
+    />
+
     <v-data-table
       :headers="headers"
       :items="filteredUsers"
@@ -69,22 +74,7 @@
       </template>
     </v-data-table>
 
-    <v-btn v-if="IsOnAPI"
-      color="primary"
-      class="mt-3"
-      block
-      @click="ShowModalAddUser = true"
-    >
-      Cadastrar Novo Usuário
-    </v-btn>
   </v-container>
-
-  <!-- MODAIS -->
-  <AddUserModal
-    :dialog="ShowModalAddUser" 
-    @CloseModal="CloseModal"
-    @showMessageModal="showMessageModal"
-  />
 
   <EditUserModal
     :dialog="ShowModalEditUser"
@@ -110,7 +100,7 @@
 </template>
 
 <script>
-import AddUserModal from "@/modais/AddUserModal.vue";
+import AddUserModal from "@/components/AddUser.vue";
 import EditUserModal from "@/modais/EditUserModal.vue";
 import DeleteUserModal from "@/modais/DeleteUserModal.vue";
 import { API_URL, formatDate } from "../utils";
@@ -140,7 +130,6 @@ export default {
       users: [],
       search: "",
       informationsUser: {},
-      ShowModalAddUser: false,
       ShowModalEditUser: false,
       ShowModalDeleteUser: false,
       messageModal: {
@@ -183,7 +172,6 @@ export default {
     },
 
     CloseModal() {
-      this.ShowModalAddUser = false;
       this.ShowModalEditUser = false;
       this.ShowModalDeleteUser = false;
 
