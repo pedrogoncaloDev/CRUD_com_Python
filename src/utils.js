@@ -13,13 +13,18 @@ export function formatDate(isoString) {
     return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 }
 
-export function formatPhone(phone) {
-    if (!phone) return '';
-    const cleaned = phone.toString().replace(/\D/g, '');
-
-    if (cleaned.length === 11) {
-        return cleaned.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+export function formatPhone(limitedDigits) {
+    const digits = limitedDigits.replace(/\D/g, '');
+    
+    let formatted = '';
+    const length = digits.length;
+    
+    if (length >= 1) formatted += `(${digits.substring(0, 2)}`;
+    if (length > 2) {
+        // Limita a 8 ou 9 dígitos após o DDD (opcional)
+        const maxDigits = 9; // Ou 8, dependendo do padrão
+        formatted += `) ${digits.substring(2, 2 + maxDigits)}`;
     }
-
-    return phone;
+    
+    return formatted;
 }

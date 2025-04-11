@@ -4,7 +4,7 @@ export const validationRules = {
         if (!value || value.trim() === '') return true;
         
         const digitsOnly = value.replace(/\D/g, '');
-        return digitsOnly.length === 11 || 'Telefone deve ter 11 dígitos (incluindo DDD)';
+        return (digitsOnly.length === 10 || digitsOnly.length === 11) || 'Tamanho do número de telefone inválido';
     },
     email: value => {
         const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

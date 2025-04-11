@@ -62,7 +62,7 @@
           <td>{{ item.id }}</td>
           <td>{{ item.nome }}</td>
           <td>{{ item.email }}</td>
-          <td>{{ formatPhone(item.telefone) }}</td>
+          <td>{{ item.telefone }}</td>
           <td>{{ formatDate(item.data_criacao) }}</td>
           <td>{{ formatDate(item.data_atualizacao) }}</td>
         </tr>
@@ -113,7 +113,7 @@
 import AddUserModal from "@/modais/AddUserModal.vue";
 import EditUserModal from "@/modais/EditUserModal.vue";
 import DeleteUserModal from "@/modais/DeleteUserModal.vue";
-import { API_URL, formatDate, formatPhone } from "../utils";
+import { API_URL, formatDate } from "../utils";
 import axios from "axios";
 
 export default {
@@ -180,10 +180,6 @@ export default {
   methods: {
     formatDate(dateString) {
       return formatDate(dateString);
-    },
-
-    formatPhone(phone) {
-      return formatPhone(phone);
     },
 
     CloseModal() {

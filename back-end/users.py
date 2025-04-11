@@ -1,6 +1,6 @@
 import psycopg2
 from datetime import datetime
-from utils import is_valid_email
+from utils import is_valid_email, format_phone
 import pytz
 
 class Users:
@@ -25,11 +25,12 @@ class Users:
                         return {"success": False, "message": "Email já utilizado por outro usuário."}
 
                     data_now = datetime.utcnow().replace(tzinfo=pytz.UTC)
+                    telefoneFormatted = format_phone(user_data['telefone'])
 
                     cur.execute("""
                         INSERT INTO usuarios (nome, email, telefone, data_criacao, data_atualizacao)
                         VALUES (%s, %s, %s, %s, %s) RETURNING id;
-                    """, (user_data['nome'], user_data['email'], user_data['telefone'], data_now, data_now))
+                    """, (user_data['nome'], user_data['email'], telefoneFormatted, data_now, data_now))
                     
                     new_id = cur.fetchone()[0]
                     conn.commit()
@@ -82,12 +83,13 @@ class Users:
                         return {"success": False, "message": "Email já utilizado por outro usuário."}
                     
                     data_atualizacao = datetime.utcnow().replace(tzinfo=pytz.UTC)
+                    telefoneFormatted = format_phone(user_data['telefone'])
 
                     cur.execute("""
                         UPDATE usuarios
                         SET nome = %s, email = %s, telefone = %s, data_atualizacao = %s
                         WHERE id = %s
-                    """, (user_data['nome'], user_data['email'], user_data['telefone'], data_atualizacao, user_data['id']))
+                    """, (user_data['nome'], user_data['email'], telefoneFormatted, data_atualizacao, user_data['id']))
                     
                     conn.commit()
                     return {"success": True, "message": f"Usuário com ID: {user_data['id']} atualizado com sucesso."}
@@ -119,7 +121,9 @@ class Users:
         telefone_limpo = ''.join(filter(str.isdigit, str(user['telefone'])))
 
         if len(telefone_limpo) != 0:
-            if len(telefone_limpo) != 11:
-                return {"success": False, "message": "Telefone deve conter 11 dígitos (incluindo DDD)."}
+            if len(telefone_limpo) != 11 and len(telefone_limpo) != 10:
+                return {"success": False, "message": "Tamanho do número de telefone inválido"}
 
         return {"success": True, "message": "Validação bem-sucedida."}
+    
+    

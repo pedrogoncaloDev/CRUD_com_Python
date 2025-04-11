@@ -28,9 +28,10 @@
                             </v-col>
                             <v-col cols="12">
                                 <v-text-field
+                                    type="text"
+                                    return-masked-value
                                     v-model="newUser.telefone"
-                                    type="number"
-                                    label="Telefone - (XX) XXXXX-XXXX"
+                                    label="Telefone"
                                     :rules="[rules.telefone]"
                                     clearable
                                 ></v-text-field>
@@ -49,7 +50,7 @@
 </template>
 
 <script>
-import { API_URL } from '../utils';
+import { API_URL, formatPhone } from '../utils';
 import axios from 'axios';
 import { validationRules } from '../validationRules';
 
@@ -71,6 +72,10 @@ export default {
     watch: {
         dialog(newVal) {
             this.localDialog = newVal;
+        },
+
+        'newUser.telefone'(newValue) {
+            this.newUser.telefone = this.formatPhone(newValue);
         }
     },
 
@@ -87,6 +92,10 @@ export default {
         CloseModal() {
             this.$emit('CloseModal');
             this.newUser = { nome: '', email: '', telefone: '', data_criacao: null, data_atualizacao: null };
+        },
+
+        formatPhone(phone) {
+            return formatPhone(phone);
         },
 
         async handleSubmit() {

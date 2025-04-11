@@ -17,9 +17,10 @@
                             <v-col cols="12">
                                 <v-text-field
                                     v-model="user.telefone"
-                                    label="Telefone - (XX) XXXXX-XXXX"
+                                    label="Telefone"
                                     :rules="[rules.telefone]"
                                     clearable
+                                    type="text"
                                 ></v-text-field>
                             </v-col>
                             <v-col cols="12">
@@ -48,7 +49,7 @@
 </template>
 
 <script>
-import { API_URL, formatDate } from '../utils';
+import { API_URL, formatDate, formatPhone } from '../utils';
 import axios from 'axios';
 import { validationRules } from '../validationRules';
 
@@ -77,18 +78,26 @@ export default {
     },
 
     watch: {
-        dialog(newVal) {
-            this.localDialog = newVal;
+        dialog(newValue) {
+            this.localDialog = newValue;
         },
 
-        informationsUser(newVal) {
-            this.user = JSON.parse(JSON.stringify(newVal));
+        informationsUser(newValue) {
+            this.user = JSON.parse(JSON.stringify(newValue));
         },
+
+        'user.telefone'(newValue) {
+            this.user.telefone = this.formatPhone(newValue);
+        }
     },
 
     methods: {
         formatDate(dateString) {
             return formatDate(dateString);
+        },
+
+        formatPhone(phone) {
+            return formatPhone(phone);
         },
 
         CloseModal() {
