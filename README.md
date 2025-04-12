@@ -39,14 +39,14 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
     pip install flask-cors
     pip install pytz
 
-4. **Configure o arquivo config_db.py: No diretório backend, edite o arquivo config_db.py com as configurações do seu PostgreSQL 16. Exemplo:**:
+4. **Na pasta back-end, crie o arquivo config_db.py. Em seguida, copie e cole as configurações abaixo e adapte-as às suas credenciais do PostgreSQL 16:**:
     ```bash
     conn_database_crud_com_python = {
         "dbname": "crud_com_python",
         "user":"seu usuario",
         "password": "sua senha",
         "host": "seu host",
-        "port": 0
+        "port": 0     # porta do seu banco
     }
 
     conn_info = {
@@ -54,7 +54,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
         "user": "seu usuario",
         "password": "sua senha",
         "host": "seu host",
-        "port": 0, 
+        "port": 0     # porta do seu banco
     }
 
 5. **Inicie o projeto:**
