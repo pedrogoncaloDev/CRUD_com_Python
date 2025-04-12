@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="pa-4">
-    <AddUserModal
+    <AddUser
       @GetUsers="GetUsers"
       @showMessageModal="showMessageModal"
     />
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import AddUserModal from "@/components/AddUser.vue";
+import AddUser from "@/components/AddUser.vue";
 import EditUserModal from "@/modais/EditUserModal.vue";
 import DeleteUserModal from "@/modais/DeleteUserModal.vue";
 import { API_URL, formatDate } from "../utils";
@@ -110,7 +110,7 @@ export default {
   name: "HomePage",
 
   components: {
-    AddUserModal,
+    AddUser,
     EditUserModal,
     DeleteUserModal,
   },
