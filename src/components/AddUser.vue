@@ -6,6 +6,7 @@
                     v-model="newUser.nome"
                     label="Nome Completo"
                     :rules="[rules.required]"
+                    color="primary"
                     required
                     clearable
                     hide-details="auto"
@@ -17,6 +18,7 @@
                     v-model="newUser.email"
                     label="Email"
                     :rules="[rules.required, rules.email]"
+                    color="primary"
                     required
                     clearable
                     hide-details="auto"
@@ -30,6 +32,7 @@
                     v-model="newUser.telefone"
                     label="Telefone"
                     :rules="[rules.telefone]"
+                    color="primary"
                     clearable
                     hide-details="auto"
                 ></v-text-field>
