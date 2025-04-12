@@ -32,14 +32,14 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
     ```bash
     npm install
 
-3. **Instale as dependências do backend: Execute os seguintes comandos para instalar as dependências necessárias no Python:**:
+3. **Instale as dependências do backend: Execute os seguintes comandos para instalar as dependências necessárias no Python**:
     ```bash
     pip install psycopg2
     pip install flask
     pip install flask-cors
     pip install pytz
 
-4. **Na pasta back-end, crie o arquivo config_db.py. Em seguida, copie e cole as configurações abaixo e adapte-as às suas credenciais do PostgreSQL 16:**:
+4. **Na pasta back-end, crie o arquivo config_db.py. Em seguida, copie e cole as configurações abaixo e adapte-as às suas credenciais do PostgreSQL 16**:
     ```bash
     conn_database_crud_com_python = {
         "dbname": "crud_com_python",
@@ -57,7 +57,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
         "port": 0     # porta do seu banco
     }
 
-5. **Inicie o projeto:**
+5. **Inicie o projeto**
     1. *No frontend, execute:*
         ```bash
         npm run serve
