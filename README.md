@@ -46,7 +46,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
         "user":"seu usuario",
         "password": "sua senha",
         "host": "seu host",
-        "port": 0
+        "port": 0     # porta do seu banco
     }
 
     conn_info = {
@@ -54,7 +54,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
         "user": "seu usuario",
         "password": "sua senha",
         "host": "seu host",
-        "port": 0, 
+        "port": 0     # porta do seu banco
     }
 
 5. **Inicie o projeto:**
