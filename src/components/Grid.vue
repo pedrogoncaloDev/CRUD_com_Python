@@ -12,7 +12,7 @@
                                 {value: 100, title: '100'},
                                 {value: -1, title: 'Todos'}
                               ]"
-      items-per-page-text="Itens por página"
+      items-per-page-text="Usuários por página"
       page-text="{0} de {1}"
       class="elevation-1"
       items-per-page="50"
