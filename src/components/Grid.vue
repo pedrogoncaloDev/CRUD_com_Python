@@ -20,59 +20,59 @@
       dark
     >
         <template v-slot:no-data>
-        <v-card-text>
-            Nenhum usuário encontrado
-        </v-card-text>
+          <v-card-text>
+              Nenhum usuário encontrado
+          </v-card-text>
         </template>
 
         <template v-slot:top>
-        <v-toolbar flat>
-            <v-toolbar-title class="d-flex align-start">Usuários</v-toolbar-title>
-            <v-text-field
-            v-model="search"
-            label="Pesquisar"
-            density="default"
-            variant="underlined"
-            validateOn="blur"
-            color="primary"
-            max-width="400"
-            class="mt-4"
-            outlined
-            clearable
-            ></v-text-field>
+          <v-toolbar flat>
+              <v-toolbar-title class="d-flex align-start">Usuários</v-toolbar-title>
+              <v-text-field
+              v-model="search"
+              label="Pesquisar"
+              density="default"
+              variant="underlined"
+              validateOn="blur"
+              color="primary"
+              max-width="400"
+              class="mt-4"
+              outlined
+              clearable
+              ></v-text-field>
 
-            <v-btn icon @click="GetUsers()" class="ml-2">
-            <v-icon>mdi-reload</v-icon>
-            </v-btn>
-        </v-toolbar>
+              <v-btn icon @click="$emit('GetUsers')" class="ml-2">
+              <v-icon>mdi-reload</v-icon>
+              </v-btn>
+          </v-toolbar>
         </template>
 
         <template v-slot:item="{ item }">
-        <tr>
-            <td class="action-buttons">
-              <v-icon
-                  @click="$emit('EditUser', item)"
-                  icon="mdi mdi-file-edit-outline"
-                  size="30"
-                  class="mr-2"
-                  style="cursor: pointer;"
-                  color="primary"
-              ></v-icon>
-              <v-icon
-                  @click="$emit('DeleteUser', item)"
-                  icon="mdi mdi-delete-outline"
-                  size="30"
-                  style="cursor: pointer;"
-                  color="error"
-              ></v-icon>
-            </td>
-            <td>{{ item.id }}</td>
-            <td>{{ item.nome }}</td>
-            <td>{{ item.email }}</td>
-            <td>{{ item.telefone }}</td>
-            <td>{{ formatDate(item.data_criacao) }}</td>
-            <td>{{ formatDate(item.data_atualizacao) }}</td>
-        </tr>
+          <tr>
+              <td class="action-buttons">
+                <v-icon
+                    @click="$emit('EditUser', item)"
+                    icon="mdi mdi-file-edit-outline"
+                    size="30"
+                    class="mr-2"
+                    style="cursor: pointer;"
+                    color="primary"
+                ></v-icon>
+                <v-icon
+                    @click="$emit('DeleteUser', item)"
+                    icon="mdi mdi-delete-outline"
+                    size="30"
+                    style="cursor: pointer;"
+                    color="error"
+                ></v-icon>
+              </td>
+              <td>{{ item.id }}</td>
+              <td>{{ item.nome }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.telefone }}</td>
+              <td>{{ formatDate(item.data_criacao) }}</td>
+              <td>{{ formatDate(item.data_atualizacao) }}</td>
+          </tr>
         </template>
     </v-data-table>
 </template>
@@ -95,7 +95,7 @@ export default {
     },
   },
 
-  emits: ["EditUser", "DeleteUser"],
+  emits: ["EditUser", "DeleteUser", "GetUsers"],
 
   data() {
     return {
