@@ -9,11 +9,10 @@
       :users="users"
       :isLoading="isLoading"
       @CloseModal="CloseModal"
+      @GetUsers="GetUsers"
       @EditUser="EditUser"
       @DeleteUser="DeleteUser"
     /> 
-
-    
 
   </v-container>
 
@@ -139,25 +138,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-/* .action-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.text-nowrap {
-  white-space: nowrap;
-}
-
-.custom-search-field {
-  color: white !important;
-  background-color: #1E1E1E !important;
-}
-
-.custom-search-field .v-input__slot, .custom-search-field .v-label, .custom-search-field .v-input__icon--clear .v-icon  {
-  background-color: #1E1E1E !important;
-} */
-</style>
