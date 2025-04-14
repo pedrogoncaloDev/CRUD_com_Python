@@ -44,7 +44,7 @@
                     class="mb-5 h-100"
                     block
                     @click="handleSubmit"
-                    style="height: 56px;"
+                    style="height: 56px !important;"
                 >
                     Cadastrar Novo Usuário
                 </v-btn>
