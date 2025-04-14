@@ -1,15 +1,23 @@
 <template>
     <v-data-table
-        :headers="headers"
-        :items="filteredUsers"
-        :loading="isLoading"
-        loading-text="Carregando usuários..."
-        no-data-text="Nenhum usuário cadastrado"
-        items-per-page-text="Itens por página"
-        class="elevation-1"
-        items-per-page="50"
-        item-value="id"
-        dark
+      :headers="headers"
+      :items="filteredUsers"
+      :loading="isLoading"
+      loading-text="Carregando usuários..."
+      no-data-text="Nenhum usuário cadastrado"
+      :items-per-page-options="[
+                                {value: 10, title: '10'},
+                                {value: 25, title: '25'},
+                                {value: 50, title: '50'},
+                                {value: 100, title: '100'},
+                                {value: -1, title: 'Todos'}
+                              ]"
+      items-per-page-text="Itens por página"
+      page-text="{0} de {1}"
+      class="elevation-1"
+      items-per-page="50"
+      item-value="id"
+      dark
     >
         <template v-slot:no-data>
         <v-card-text>
