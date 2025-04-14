@@ -5,11 +5,11 @@
                 <v-text-field 
                     v-model="newUser.nome"
                     label="Nome Completo"
-                    :rules="[rules.required]"
+                    :rules="showErrors ? [rules.required] : []"
                     color="primary"
                     required
                     clearable
-                    hide-details="auto"
+                    :hide-details="!showErrors"
                 ></v-text-field>
             </v-col>
 
@@ -17,11 +17,11 @@
                 <v-text-field
                     v-model="newUser.email"
                     label="Email"
-                    :rules="[rules.required, rules.email]"
+                    :rules="showErrors ? [rules.required, rules.email] : []"
                     color="primary"
                     required
                     clearable
-                    hide-details="auto"
+                    :hide-details="!showErrors"
                 ></v-text-field>
             </v-col>
 
@@ -31,10 +31,10 @@
                     return-masked-value
                     v-model="newUser.telefone"
                     label="Telefone"
-                    :rules="[rules.telefone]"
+                    :rules="showErrors ? [rules.telefone] : []"
                     color="primary"
                     clearable
-                    hide-details="auto"
+                    :hide-details="!showErrors"
                 ></v-text-field>
             </v-col>
 
@@ -43,7 +43,8 @@
                     color="primary"
                     class="mb-5 h-100"
                     block
-                    @click="handleSubmit()"
+                    @click="handleSubmit"
+                    style="height: 56px;"
                 >
                     Cadastrar Novo Usuário
                 </v-btn>
@@ -51,6 +52,7 @@
         </v-row>
     </v-form>
 </template>
+
 <script>
 import { API_URL, formatPhone } from '../utils';
 import axios from 'axios';
@@ -67,6 +69,7 @@ export default {
         return {
             newUser: { nome: '', email: '', telefone: '', data_criacao: null, data_atualizacao: null },
             rules: validationRules,
+            showErrors: false
         };
     },
 
@@ -90,9 +93,14 @@ export default {
         },
 
         async handleSubmit() {
-            const form_information = this.$refs.form.validate(); // Valida os campos do formulário
-
-            if (!form_information) {
+            this.showErrors = true;
+            this.$refs.form.resetValidation();
+            
+            await this.$nextTick();
+            
+            const isValid = this.$refs.form.validate();
+            
+            if (!isValid) {
                 this.$emit("showMessageModal", "Erro", "Preencha todos os campos obrigatórios corretamente.");
                 return;
             }
@@ -102,7 +110,7 @@ export default {
 
         handleKeydown(event) {
             if (event.key === 'Enter') {
-                this.CreateUser();
+                this.handleSubmit();
             }
         },
 
@@ -112,7 +120,7 @@ export default {
 
                 if (response.status === 201) {
                     this.$emit("showMessageModal", "Sucesso", "Usuário criado com sucesso!");
-
+                    this.showErrors = false;
                     this.resetVariableUser();
                     this.$emit("GetUsers");
                 } else {
@@ -120,8 +128,7 @@ export default {
                     this.$emit("showMessageModal", "Erro", "Erro ao criar o usuário!");
                 }
             } catch (error) {
-                const message = error.response.data.error === undefined ? error.message : error.response.data.error;
-                
+                const message = error.response?.data?.error || error.error || "Erro ao criar usuário";
                 console.error("Erro ao salvar o usuário:", error);
                 this.$emit("showMessageModal", "Erro", message);
             }
