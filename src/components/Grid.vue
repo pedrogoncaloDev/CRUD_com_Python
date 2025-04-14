@@ -131,3 +131,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+</style>
