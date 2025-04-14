@@ -9,6 +9,8 @@
       :users="users"
       :isLoading="isLoading"
       @CloseModal="CloseModal"
+      @EditUser="EditUser"
+      @DeleteUser="DeleteUser"
     /> 
 
     

@@ -42,21 +42,21 @@
         <template v-slot:item="{ item }">
         <tr>
             <td class="action-buttons">
-            <v-icon
-                @click="EditUser(item)"
-                icon="mdi mdi-file-edit-outline"
-                size="30"
-                class="mr-2"
-                style="cursor: pointer;"
-                color="primary"
-            ></v-icon>
-            <v-icon
-                @click="DeleteUser(item)"
-                icon="mdi mdi-delete-outline"
-                size="30"
-                style="cursor: pointer;"
-                color="error"
-            ></v-icon>
+              <v-icon
+                  @click="$emit('EditUser', item)"
+                  icon="mdi mdi-file-edit-outline"
+                  size="30"
+                  class="mr-2"
+                  style="cursor: pointer;"
+                  color="primary"
+              ></v-icon>
+              <v-icon
+                  @click="$emit('DeleteUser', item)"
+                  icon="mdi mdi-delete-outline"
+                  size="30"
+                  style="cursor: pointer;"
+                  color="error"
+              ></v-icon>
             </td>
             <td>{{ item.id }}</td>
             <td>{{ item.nome }}</td>
@@ -86,6 +86,8 @@ export default {
       default: false,
     },
   },
+
+  emits: ["EditUser", "DeleteUser"],
 
   data() {
     return {
@@ -125,23 +127,6 @@ export default {
   methods: {
     formatDate(dateString) {
       return formatDate(dateString);
-    },
-
-    CloseModal() {
-
-    },
-
-    EditUser() {
-
-    },
-
-    DeleteUser() {
-
-    },
-
-    showMessageModal() {
-
-        
     },
   },
 };

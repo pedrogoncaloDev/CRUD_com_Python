@@ -41,7 +41,7 @@
             <v-col cols="12" md="3">
                 <v-btn
                     color="primary"
-                    class="mb-5"
+                    class="mb-5 h-100"
                     block
                     @click="handleSubmit()"
                 >
