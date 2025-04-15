@@ -60,7 +60,17 @@ import { validationRules } from '../validationRules';
 
 export default {
     props: {
-        dialog: Boolean
+        dialog: Boolean,
+
+        modalDeleteIsOpen: {
+            type: Boolean,
+            default: false,
+        },
+
+        modalEditIsOpen: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     emits: ["GetUsers", "showMessageModal"],
@@ -109,6 +119,12 @@ export default {
         },
 
         handleKeydown(event) {
+            // Só funciona o atalho com os modais fechados
+            // Se algum modal estiver aberto, não faz nada
+            if (this.modalDeleteIsOpen || this.modalEditIsOpen) {
+                return;
+            }
+
             if (event.key === 'Enter') {
                 this.handleSubmit();
             }

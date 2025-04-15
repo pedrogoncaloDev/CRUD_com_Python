@@ -1,6 +1,8 @@
 <template>
   <v-container fluid class="pa-4">
     <AddUser
+      :modalEditIsOpen="ShowModalEditUser"
+      :modalDeleteIsOpen="ShowModalDeleteUser"
       @GetUsers="GetUsers"
       @showMessageModal="showMessageModal"
     />
