@@ -20,6 +20,10 @@ export default {
   box-sizing: border-box;
 }
 
+html{
+  overflow: hidden;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

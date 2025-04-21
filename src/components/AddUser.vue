@@ -1,5 +1,5 @@
 <template>
-    <v-form class="mb-8" ref="form" @submit.prevent="handleSubmit">
+    <v-form class="mb-3" ref="form" @submit.prevent="handleSubmit">
         <v-row>
             <v-col cols="12" md="3">
                 <v-text-field 

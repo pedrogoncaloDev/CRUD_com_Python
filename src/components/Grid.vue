@@ -1,80 +1,80 @@
 <template>
-    <v-data-table
-      :headers="headers"
-      :items="filteredUsers"
-      :loading="isLoading"
-      loading-text="Carregando usuários..."
-      no-data-text="Nenhum usuário cadastrado"
-      :items-per-page-options="[
-                                {value: 10, title: '10'},
-                                {value: 25, title: '25'},
-                                {value: 50, title: '50'},
-                                {value: 100, title: '100'},
-                                {value: -1, title: 'Todos'}
-                              ]"
-      items-per-page-text="Usuários por página"
-      page-text="{0} de {1}"
-      class="elevation-1"
-      items-per-page="50"
-      item-value="id"
-      dark
-    >
-        <template v-slot:no-data>
-          <v-card-text>
-              Nenhum usuário encontrado
-          </v-card-text>
-        </template>
+  <v-data-table
+    :headers="headers"
+    :items="filteredUsers"
+    :loading="isLoading"
+    loading-text="Carregando usuários..."
+    no-data-text="Nenhum usuário cadastrado"
+    :items-per-page-options="[
+                              {value: 10, title: '10'},
+                              {value: 25, title: '25'},
+                              {value: 50, title: '50'},
+                              {value: 100, title: '100'},
+                              {value: -1, title: 'Todos'}
+                            ]"
+    items-per-page-text="Usuários por página"
+    page-text="{0} de {1}"
+    class="elevation-1 grid-table"
+    items-per-page="50"
+    item-value="id"
+    dark
+  >
+      <template v-slot:no-data>
+        <v-card-text>
+          Nenhum usuário encontrado
+        </v-card-text>
+      </template>
 
-        <template v-slot:top>
-          <v-toolbar flat>
-              <v-toolbar-title class="d-flex align-start">Usuários</v-toolbar-title>
-              <v-text-field
-              v-model="search"
-              label="Pesquisar"
-              density="default"
-              variant="underlined"
-              validateOn="blur"
-              color="primary"
-              max-width="400"
-              class="mt-4"
-              outlined
-              clearable
-              ></v-text-field>
+      <template v-slot:top>
+        <v-toolbar flat>
+            <v-toolbar-title class="d-flex align-start">Usuários</v-toolbar-title>
+            <v-text-field
+            v-model="search"
+            label="Pesquisar"
+            density="default"
+            variant="underlined"
+            validateOn="blur"
+            color="primary"
+            max-width="400"
+            class="mt-4"
+            outlined
+            clearable
+            ></v-text-field>
 
-              <v-btn icon @click="$emit('GetUsers')" class="ml-2">
-              <v-icon>mdi-reload</v-icon>
-              </v-btn>
-          </v-toolbar>
-        </template>
+            <v-btn icon @click="$emit('GetUsers')" class="ml-2">
+            <v-icon>mdi-reload</v-icon>
+            </v-btn>
+        </v-toolbar>
+      </template>
 
-        <template v-slot:item="{ item }">
-          <tr>
-              <td class="action-buttons">
-                <v-icon
-                    @click="$emit('EditUser', item)"
-                    icon="mdi mdi-file-edit-outline"
-                    size="30"
-                    class="mr-2"
-                    style="cursor: pointer;"
-                    color="primary"
-                ></v-icon>
-                <v-icon
-                    @click="$emit('DeleteUser', item)"
-                    icon="mdi mdi-delete-outline"
-                    size="30"
-                    style="cursor: pointer;"
-                    color="error"
-                ></v-icon>
-              </td>
-              <td>{{ item.id }}</td>
-              <td>{{ item.nome }}</td>
-              <td>{{ item.email }}</td>
-              <td>{{ item.telefone }}</td>
-              <td>{{ formatDate(item.data_criacao) }}</td>
-              <td>{{ formatDate(item.data_atualizacao) }}</td>
-          </tr>
-        </template>
-    </v-data-table>
+      <template v-slot:item="{ item }">
+        <tr>
+            <td class="action-buttons">
+              <v-icon
+                  @click="$emit('EditUser', item)"
+                  icon="mdi mdi-file-edit-outline"
+                  size="30"
+                  class="mr-2"
+                  style="cursor: pointer;"
+                  color="primary"
+              ></v-icon>
+              <v-icon
+                  @click="$emit('DeleteUser', item)"
+                  icon="mdi mdi-delete-outline"
+                  size="30"
+                  style="cursor: pointer;"
+                  color="error"
+              ></v-icon>
+            </td>
+            <td>{{ item.id }}</td>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.telefone }}</td>
+            <td>{{ formatDate(item.data_criacao) }}</td>
+            <td>{{ formatDate(item.data_atualizacao) }}</td>
+        </tr>
+      </template>
+  </v-data-table>
 </template>
 
 <script>
@@ -141,6 +141,12 @@ export default {
 </script>
 
 <style scoped>
+.grid-table {
+  flex: 1;
+  overflow: auto;
+  min-height: 400px;
+}
+
 .action-buttons {
   display: flex;
   align-items: center;
