@@ -32,14 +32,31 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
     ```bash
     npm install
 
-3. **Instale as dependências do backend: Execute os seguintes comandos para instalar as dependências necessárias no Python**:
-    ```bash
-    pip install psycopg2
-    pip install flask
-    pip install flask-cors
-    pip install pytz
+3. **Instale as dependências do backend:**
 
-4. **Na pasta back-end, crie o arquivo config_db.py. Em seguida, copie e cole as configurações abaixo e adapte-as às suas credenciais do PostgreSQL 16**:
+   1. **Ative o ambiente virtual de desenvolvimento:**
+      ```bash
+      # No Windows
+      .\venv\Scripts\activate
+
+      # No Linux/Mac
+      source ./venv/bin/activate
+      ```
+
+   2. **Execute os seguintes comandos para instalar as dependências necessárias no Python:**
+      ```bash
+      pip install psycopg2
+      pip install flask
+      pip install flask-cors
+      pip install pytz
+      ```
+
+   3. **Configure o interpretador do Python no VS Code:**
+      - Pressione `Ctrl + Shift + P` (Windows/Linux) ou `Cmd + Shift + P` (Mac).
+      - Digite `Python: Select Interpreter`.
+      - Escolha o Python do ambiente virtual (geralmente em `./venv/Scripts/python` ou `./venv/bin/python`).
+
+4. **Na pasta back-end, crie o arquivo config_db.py. Em seguida, copie e cole as configurações abaixo e adapte-as às suas credenciais do seu PostgreSQL 16**:
     ```bash
     conn_database_crud_com_python = {
         "dbname": "crud_com_python",
