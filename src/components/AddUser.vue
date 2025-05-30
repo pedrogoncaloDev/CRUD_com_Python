@@ -46,7 +46,7 @@
                     @click="handleSubmit"
                     style="height: 56px !important;"
                 >
-                    Cadastrar Novo Usuário
+                    Cadastrar Usuário
                 </v-btn>
             </v-col>
         </v-row>
