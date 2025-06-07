@@ -22,6 +22,6 @@ pnpm-debug.log*
 *.sw?
 
 # Back-end
-/back-end/__pycache__
-back-end/__pycache__/config_db.cpython-313.pyc
-back-end/config_db.py
+cd/back-end/__pycache__
+cd/back-end/__pycache__/config_db.cpython-313.pyc
+cd/back-end/config_db.py
