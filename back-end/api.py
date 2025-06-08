@@ -1,13 +1,3 @@
-# Configurando ambiente virtual
-# python -m venv venv
-# venv\Scripts\activate
-
-# Instalando dependências
-# pip install psycopg2
-# pip install flask
-# pip install flask-cors
-# pip install pytz
-
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from users import Users
