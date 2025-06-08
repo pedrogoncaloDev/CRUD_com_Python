@@ -25,3 +25,4 @@ pnpm-debug.log*
 cd/back-end/__pycache__
 cd/back-end/__pycache__/config_db.cpython-313.pyc
 cd/back-end/config_db.py
+cd/back-end/venv
