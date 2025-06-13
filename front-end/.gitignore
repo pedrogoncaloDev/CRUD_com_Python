@@ -23,5 +23,5 @@ pnpm-debug.log*
 
 # Back-end
 ../back-end/__pycache__
-../back-end/config_db.py
+../back-end/config/config_db.py
 ../back-end/venv
