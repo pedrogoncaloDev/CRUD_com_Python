@@ -22,6 +22,5 @@ pnpm-debug.log*
 *.sw?
 
 # Back-end
-../back-end/__pycache__
-../back-end/config/config_db.py
-../back-end/venv
+back-end/__pycache__
+back-end/venv
