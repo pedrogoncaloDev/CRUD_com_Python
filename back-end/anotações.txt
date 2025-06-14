@@ -1,5 +1,5 @@
 # Criando ambiente virtual
-python3 -m venv venv
+python -m venv venv
 
 # Ativando ambiente virtual
 Linux -> source venv/bin/activate
