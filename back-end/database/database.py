@@ -1,6 +1,6 @@
 import psycopg2
 from psycopg2 import sql
-from config_db import conn_database_crud_com_python, conn_info
+from database.config_db import conn_database_crud_com_python, conn_info
 
 db_name = "crud_com_python"
 

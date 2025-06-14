@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from users import Users
-from config.config_db import conn_database_crud_com_python  # Corrigido o caminho do módulo
-from database import create_database, create_table_users
+from database.config_db import conn_database_crud_com_python  # Corrigido o caminho do módulo
+from database.database import create_database, create_table_users
 from utils import date_to_string
 import json
 
