@@ -11,3 +11,15 @@ pip freeze > requirements.txt
 # Instalando dependências do arquivo requirements.txt
 pip install -r requirements.txt
 
+# Comando docker
+## sobe os containers (usa cache se puder)
+docker compose up 
+
+## reconstrói tudo antes de subir
+docker compose up --build
+
+## só reconstrói, não sobe
+docker compose build
+
+## para apagar tudo antes e garantir um deploy limpo, sem lixo de cache. Ideal pra testar “como se fosse na máquina do cliente”.
+docker compose down && docker compose up --build
