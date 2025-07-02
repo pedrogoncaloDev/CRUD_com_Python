@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./back-end
+    container_name: backend_crud_com_python
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./back-end:/app
+    restart: unless-stopped
