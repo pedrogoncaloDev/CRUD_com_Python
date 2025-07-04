@@ -1,15 +1,15 @@
-conn_database_crud_com_python = {
+CONN_DATABASE_CRUD_COM_PYTHON  = {
     "dbname": "crud_com_python",
     "user":"postgres",
     "password": "masterkey",
-    "host": "localhost",
+    "host": "host.docker.internal",
     "port": 5432
 }
 
-conn_info = {
+CONN_INFO = {
     "dbname": "postgres",
     "user": "postgres",
     "password": "masterkey",
-    "host": "localhost",
+    "host": "host.docker.internal",
     "port": 5432, 
 }

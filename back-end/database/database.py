@@ -1,22 +1,22 @@
 import psycopg2
 from psycopg2 import sql
-from database.config_db import conn_database_crud_com_python, conn_info
+from database.config_db import CONN_DATABASE_CRUD_COM_PYTHON , CONN_INFO
 
-db_name = "crud_com_python"
+DB_NAME = "crud_com_python"
 
 def create_database():
     try:
-        conn = psycopg2.connect(**conn_info)
+        conn = psycopg2.connect(**CONN_INFO)
         conn.autocommit = True
         cur = conn.cursor()
 
         try:
-            cur.execute("SELECT 1 FROM pg_database WHERE datname = %s", (db_name,))
+            cur.execute("SELECT 1 FROM pg_database WHERE datname = %s", (DB_NAME,))
             if cur.fetchone():
-                print(f"O banco de dados '{db_name}' já existe.")
+                print(f"O banco de dados '{DB_NAME}' já existe.")
             else:
-                cur.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(db_name)))
-                print(f"Banco de dados '{db_name}' criado com sucesso.")
+                cur.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(DB_NAME)))
+                print(f"Banco de dados '{DB_NAME}' criado com sucesso.")
         finally:
             cur.close()
             conn.close()
@@ -25,7 +25,7 @@ def create_database():
 
 def create_table_users():
     try:
-        conn = psycopg2.connect(**conn_database_crud_com_python)
+        conn = psycopg2.connect(**CONN_DATABASE_CRUD_COM_PYTHON )
         conn.autocommit = True
         cur = conn.cursor()
 
