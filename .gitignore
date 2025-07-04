@@ -21,6 +21,9 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+# DOCKER
+./devcontainer
+
 # Back-end
 **/__pycache__/
 back-end/venv
