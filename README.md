@@ -58,7 +58,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 
 4. **Na pasta back-end, crie o arquivo config_db.py. Em seguida, copie e cole as configurações abaixo e adapte-as às suas credenciais do seu PostgreSQL 16**:
     ```bash
-    conn_database_crud_com_python = {
+    CONN_DATABASE_CRUD_COM_PYTHON  = {
         "dbname": "crud_com_python",
         "user":"seu usuario",
         "password": "sua senha",
@@ -66,7 +66,7 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
         "port": 0     # porta do seu banco
     }
 
-    conn_info = {
+    CONN_INFO = {
         "dbname": "postgres",
         "user": "seu usuario",
         "password": "sua senha",
