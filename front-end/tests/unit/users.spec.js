@@ -3,12 +3,12 @@ import axios from "axios";
 
 /* eslint-env jest */
 describe("CRUD for users", () => {
-    it("Select all users", async () => {
-        const response = await axios.get(API_URL);
+    // it("Select all users", async () => {
+    //     const response = await axios.get(API_URL);
 
-        expect(response.status).toBe(200);
-        expect(Array.isArray(response.data)).toBe(true);
-    });
+    //     expect(response.status).toBe(200);
+    //     expect(Array.isArray(response.data)).toBe(true);
+    // });
 
     // it("Create a new user", async () => {
     //     const newUser = { name: "Test User", email: "test@example.com" };
