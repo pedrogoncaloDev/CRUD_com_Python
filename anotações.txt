@@ -15,6 +15,10 @@ pip freeze > requirements.txt
 # Instalando dependências do arquivo requirements.txt
 pip install -r requirements.txt
 
+---------------- main.py -------------------------
+# Rodar o arquivo main.py 
+python main.py
+
 ---------------- DOCKER -------------------------
 # Comando docker
 ## sobe os containers (usa cache se puder)
