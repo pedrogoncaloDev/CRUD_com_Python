@@ -1,26 +1,17 @@
-CONN_DATABASE_CRUD_COM_PYTHON  = {
-    "dbname": "crud_com_python",
-    "user":"postgres",
-    "password": "masterkey",
-    # "host": "host.docker.internal",
-    "host": "localhost",
-    "port": 5432
-}
+import os
 
-CONN_DATABASE_TEST_CRUD_COM_PYTHON  = {
-    "dbname": "test_crud_com_python",
-    "user":"postgres",
-    "password": "masterkey",
-    # "host": "host.docker.internal",
-    "host": "localhost",
-    "port": 5432
+CONN_DATABASE_CRUD_COM_PYTHON = {
+    "dbname": os.getenv("DB_CRUD_NAME"),
+    "user": os.getenv("DB_CRUD_USER"),
+    "password": os.getenv("DB_CRUD_PASSWORD"),
+    "host": os.getenv("DB_CRUD_HOST"),
+    "port": int(os.getenv("DB_CRUD_PORT", 5432)),
 }
 
 CONN_INFO = {
-    "dbname": "postgres",
-    "user": "postgres",
-    "password": "masterkey",
-    # "host": "host.docker.internal",
-    "host": "localhost",
-    "port": 5432, 
+    "dbname": os.getenv("DB_DEFAULT_NAME"),
+    "user": os.getenv("DB_DEFAULT_USER"),
+    "password": os.getenv("DB_DEFAULT_PASSWORD"),
+    "host": os.getenv("DB_DEFAULT_HOST"),
+    "port": int(os.getenv("DB_DEFAULT_PORT", 5432)),
 }
