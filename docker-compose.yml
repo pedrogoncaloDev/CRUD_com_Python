@@ -1,11 +1,38 @@
-version: "3.9"
-
 services:
-  backend:
-    build: ./back-end
-    container_name: backend_crud_com_python
+
+  postgres:
+    image: postgres:15
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  back_end:
+    build: ./backend
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  front-end:
+    build:
+      context: ./front-end
+
+    container_name: vue_front-end
+
+    restart: always
+
     ports:
-      - "8000:8000"
-    volumes:
-      - ./back-end:/app
-    restart: unless-stopped
+      - "80:80"
+
+    depends_on:
+      - back_end
+
+volumes:
+  postgres_data:
