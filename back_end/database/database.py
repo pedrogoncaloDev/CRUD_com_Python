@@ -1,6 +1,6 @@
 import psycopg2
 from psycopg2 import sql
-from database.config_db import CONN_DATABASE_USERHUB , CONN_INFO
+from database.config_db import CONN_DATABASE_USERHUB
 
 def create_table_users():
     try:

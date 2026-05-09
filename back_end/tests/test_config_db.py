@@ -1,4 +1,4 @@
-from database.config_db import CONN_DATABASE_USERHUB, CONN_INFO
+from database.config_db import CONN_DATABASE_USERHUB
 
 def test_CONN_DATABASE_USERHUB_structure():
     expected_keys = ["dbname", "user", "password", "host", "port"]
@@ -7,18 +7,6 @@ def test_CONN_DATABASE_USERHUB_structure():
 def test_CONN_DATABASE_USERHUB_values():
     conn = CONN_DATABASE_USERHUB
     assert conn["dbname"] == "userhub"
-    assert conn["user"] == "postgres"
-    assert conn["password"] == "masterkey"
-    assert conn["host"] == "host.docker.internal"
-    assert conn["port"] == 5432
-
-def test_conn_info_structure():
-    expected_keys = ["dbname", "user", "password", "host", "port"]
-    assert set(CONN_INFO.keys()) == set(expected_keys)
-
-def test_conn_info_values():
-    conn = CONN_INFO
-    assert conn["dbname"] == "postgres"
     assert conn["user"] == "postgres"
     assert conn["password"] == "masterkey"
     assert conn["host"] == "host.docker.internal"

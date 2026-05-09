@@ -66,14 +66,6 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
         "port": 0     # porta do seu banco
     }
 
-    CONN_INFO = {
-        "dbname": "postgres",
-        "user": "seu usuario",
-        "password": "sua senha",
-        "host": "seu host",
-        "port": 0     # porta do seu banco
-    }
-
 5. **Inicie o projeto**
     1. *No frontend, execute:*
         ```bash
