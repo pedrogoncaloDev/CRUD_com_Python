@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from users import Users
 from database.config_db import CONN_DATABASE_CRUD_COM_PYTHON   # Corrigido o caminho do módulo
-from database.database import create_database, create_table_users
+from database.database import create_table_users
 from utils import date_to_string
 import json
 
@@ -10,7 +10,6 @@ app = Flask(__name__)
 CORS(app)  # Habilita o CORS
 users = Users(CONN_DATABASE_CRUD_COM_PYTHON )
 
-create_database()
 create_table_users()
 
 # Rotas
