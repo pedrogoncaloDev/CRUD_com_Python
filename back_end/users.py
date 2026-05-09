@@ -4,11 +4,11 @@ from utils import is_valid_email, format_phone
 import pytz
 
 class Users:
-    def __init__(self, CONN_DATABASE_CRUD_COM_PYTHON ):
-        self.CONN_DATABASE_CRUD_COM_PYTHON  = CONN_DATABASE_CRUD_COM_PYTHON 
+    def __init__(self, CONN_DATABASE_USERHUB ):
+        self.CONN_DATABASE_USERHUB  = CONN_DATABASE_USERHUB 
 
     def connect(self):
-        return psycopg2.connect(**self.CONN_DATABASE_CRUD_COM_PYTHON )
+        return psycopg2.connect(**self.CONN_DATABASE_USERHUB )
 
 
     def create_user(self, user_data):

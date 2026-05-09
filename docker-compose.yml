@@ -3,9 +3,20 @@ services:
   postgres:
     image: postgres:15
 
+    container_name: postgres_db
+
+    restart: always
+
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: app_db
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
@@ -13,18 +24,28 @@ services:
       timeout: 5s
       retries: 10
 
-  back_end:
-    build: ./backend
+  backend:
+    build: ./back_end
+
+    container_name: python_backend
+
+    restart: always
+
+    ports:
+      - "8000:8000"
 
     depends_on:
       postgres:
         condition: service_healthy
 
-  front-end:
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/app_db
+
+  frontend:
     build:
       context: ./front-end
 
-    container_name: vue_front-end
+    container_name: vue_frontend
 
     restart: always
 
@@ -32,7 +53,7 @@ services:
       - "80:80"
 
     depends_on:
-      - back_end
+      - backend
 
 volumes:
   postgres_data:

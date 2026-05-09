@@ -1,4 +1,4 @@
-# CRUD com Python
+# UserHub
 
 ![Vue.js](https://img.shields.io/badge/Vue.js-3.x-4FC08D?logo=vuedotjs)
 ![Vuetify](https://img.shields.io/badge/Vuetify-3.x-1867C0?logo=vuetify)
@@ -25,8 +25,8 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 
 1. **Clone o repositório**:
     ```bash
-    git clone https://github.com/Pedro-Gonsalo/CRUD-com-Python.git
-    cd CRUD_com_python
+    git clone https://github.com/Pedro-Gonsalo/UserHub.git
+    cd UserHub
 
 2. **Instale as dependências do frontend**:
     ```bash
@@ -58,8 +58,8 @@ Projeto desenvolvido para consolidar meus conhecimentos em desenvolvimento full-
 
 4. **Na pasta back-end, crie o arquivo config_db.py. Em seguida, copie e cole as configurações abaixo e adapte-as às suas credenciais do seu PostgreSQL 16**:
     ```bash
-    CONN_DATABASE_CRUD_COM_PYTHON  = {
-        "dbname": "crud_com_python",
+    CONN_DATABASE_USERHUB  = {
+        "dbname": "userhub",
         "user":"seu usuario",
         "password": "sua senha",
         "host": "seu host",

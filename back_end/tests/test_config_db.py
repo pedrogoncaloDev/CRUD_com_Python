@@ -1,12 +1,12 @@
-from database.config_db import CONN_DATABASE_CRUD_COM_PYTHON, CONN_INFO
+from database.config_db import CONN_DATABASE_USERHUB, CONN_INFO
 
-def test_conn_database_crud_com_python_structure():
+def test_CONN_DATABASE_USERHUB_structure():
     expected_keys = ["dbname", "user", "password", "host", "port"]
-    assert set(CONN_DATABASE_CRUD_COM_PYTHON.keys()) == set(expected_keys)
+    assert set(CONN_DATABASE_USERHUB.keys()) == set(expected_keys)
 
-def test_conn_database_crud_com_python_values():
-    conn = CONN_DATABASE_CRUD_COM_PYTHON
-    assert conn["dbname"] == "crud_com_python"
+def test_CONN_DATABASE_USERHUB_values():
+    conn = CONN_DATABASE_USERHUB
+    assert conn["dbname"] == "userhub"
     assert conn["user"] == "postgres"
     assert conn["password"] == "masterkey"
     assert conn["host"] == "host.docker.internal"

@@ -1,10 +1,10 @@
 import psycopg2
 from psycopg2 import sql
-from database.config_db import CONN_DATABASE_CRUD_COM_PYTHON , CONN_INFO
+from database.config_db import CONN_DATABASE_USERHUB , CONN_INFO
 
 def create_table_users():
     try:
-        conn = psycopg2.connect(**CONN_DATABASE_CRUD_COM_PYTHON )
+        conn = psycopg2.connect(**CONN_DATABASE_USERHUB )
         conn.autocommit = True
         cur = conn.cursor()
 
