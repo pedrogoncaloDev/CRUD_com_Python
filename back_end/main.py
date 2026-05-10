@@ -1,3 +1,12 @@
+import os 
+
+if os.getenv('DEBUG_MODE') == 'true':
+    import debugpy
+    debugpy.listen(("0.0.0.0", 5678))
+    print("🐛 Debugger aguardando conexão na porta 5678...")
+    # debugpy.wait_for_client()  # Descomente se quiser que espere o debugger conectar
+
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from users import Users
@@ -7,7 +16,13 @@ from utils import date_to_string
 import json
 
 app = Flask(__name__)
-CORS(app)  # Habilita o CORS
+CORS(app, resources={
+    r"/*": {
+        "origins": ["http://localhost:8080", "http://localhost:80"],
+        "methods": ["GET", "POST", "PUT", "DELETE"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 users = Users(CONN_DATABASE_USERHUB )
 
 create_table_users()
