@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-4 container-user">
+  <v-container class="pa-4 container-user">
     <AddUser
       :modalEditIsOpen="ShowModalEditUser"
       :modalDeleteIsOpen="ShowModalDeleteUser"
@@ -144,7 +144,6 @@ export default {
 .container-user {
   height: 100vh; 
   display: flex; 
-  flex-direction: column; 
-  overflow: hidden;
+  flex-direction: column;
 }
 </style>
