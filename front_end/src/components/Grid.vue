@@ -31,6 +31,7 @@
             <v-text-field
             v-model="search"
             label="Pesquisar"
+            placeholder="Pesquise por qualquer campo"
             density="default"
             variant="underlined"
             validateOn="blur"
