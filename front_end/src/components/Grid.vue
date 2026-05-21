@@ -70,7 +70,7 @@
             <td>{{ item.id }}</td>
             <td>{{ item.nome }}</td>
             <td>{{ item.email }}</td>
-            <td>{{ item.telefone }}</td>
+            <td>{{ formatPhone(item.telefone) }}</td>
             <td>{{ formatDate(item.data_criacao) }}</td>
             <td>{{ formatDate(item.data_atualizacao) }}</td>
         </tr>
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { formatDate } from "../utils";
+import { formatDate, formatPhone } from "../utils";
 
 export default {
   name: "GridComponent",
@@ -109,7 +109,7 @@ export default {
         { title: "Data de Criação", key: "data_criacao" },
         { title: "Data de Atualização", key: "data_atualizacao" },
       ],
-      search: "",
+      search: ""
     };
   },
 
@@ -136,6 +136,10 @@ export default {
   methods: {
     formatDate(dateString) {
       return formatDate(dateString);
+    },
+
+    formatPhone(phone) {
+      return formatPhone(phone);
     },
   },
 };

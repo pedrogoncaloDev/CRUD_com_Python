@@ -20,8 +20,11 @@ export default {
   box-sizing: border-box;
 }
 
-html{
-  overflow: hidden;
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #app {
@@ -30,7 +33,6 @@ html{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #fff;
-  height: 100%;
   width: 100%;
 }
 </style>

@@ -142,8 +142,8 @@ export default {
 
 <style scoped>
 .container-user {
-  height: 100vh; 
+  /* height: 100vh; 
   display: flex; 
-  flex-direction: column;
+  flex-direction: column; */
 }
 </style>
