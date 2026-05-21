@@ -1,6 +1,6 @@
 import psycopg2
 from datetime import datetime
-from utils import is_valid_email, format_phone
+from utils import is_valid_email, valid_phone
 import pytz
 
 class Users:
@@ -25,12 +25,16 @@ class Users:
                         return {"success": False, "message": "Email já utilizado por outro usuário."}
 
                     data_now = datetime.utcnow().replace(tzinfo=pytz.UTC)
-                    telefoneFormatted = format_phone(user_data['telefone'])
+
+                    if not valid_phone(user_data['telefone']):
+                        return {"success": False, "message": "Telefone inválido."}
+
+                    phone = ''.join(filter(str.isdigit, str(phone)))
 
                     cur.execute("""
                         INSERT INTO usuarios (nome, email, telefone, data_criacao, data_atualizacao)
                         VALUES (%s, %s, %s, %s, %s) RETURNING id;
-                    """, (user_data['nome'], user_data['email'], telefoneFormatted, data_now, data_now))
+                    """, (user_data['nome'], user_data['email'], phone, data_now, data_now))
                     
                     new_id = cur.fetchone()[0]
                     conn.commit()
@@ -83,13 +87,16 @@ class Users:
                         return {"success": False, "message": "Email já utilizado por outro usuário."}
                     
                     data_atualizacao = datetime.utcnow().replace(tzinfo=pytz.UTC)
-                    telefoneFormatted = format_phone(user_data['telefone'])
+                    if not valid_phone(user_data['telefone']):
+                        return {"success": False, "message": "Telefone inválido."}
+
+                    phone = ''.join(filter(str.isdigit, str(phone)))
 
                     cur.execute("""
                         UPDATE usuarios
                         SET nome = %s, email = %s, telefone = %s, data_atualizacao = %s
                         WHERE id = %s
-                    """, (user_data['nome'], user_data['email'], telefoneFormatted, data_atualizacao, user_data['id']))
+                    """, (user_data['nome'], user_data['email'], phone, data_atualizacao, user_data['id']))
                     
                     conn.commit()
                     return {"success": True, "message": f"Usuário com ID: {user_data['id']} atualizado com sucesso."}

@@ -1,4 +1,4 @@
-from utils import date_to_string, is_valid_email, format_phone
+from utils import date_to_string, is_valid_email, valid_phone
 
 def test_date_to_string():
     from datetime import datetime
@@ -20,16 +20,16 @@ def test_is_valid_email():
     #teste com email inválido
     assert not is_valid_email("teste@gmail")
 
-def test_format_phone():
+def test_valid_phone():
     # Teste com telefone no formato (00) 0000-0000
-    assert format_phone("(11) 1234-5678") == "(11) 1234-5678"
+    assert valid_phone("(11) 1234-5678") == "(11) 1234-5678"
 
     # Teste com telefone no formato (00) 00000-0000
-    assert format_phone("(11) 91234-5678") == "(11) 91234-5678"
+    assert valid_phone("(11) 91234-5678") == "(11) 91234-5678"
 
     # Teste com telefone sem formatação
-    assert format_phone("11987654321") == "(11) 98765-4321"
+    assert valid_phone("11987654321") == "(11) 98765-4321"
 
     # Teste com telefone inválido
-    assert format_phone("12345") == "12345"  # Retorna os dígitos sem formatação
+    assert valid_phone("12345") == "12345"  # Retorna os dígitos sem formatação
     
