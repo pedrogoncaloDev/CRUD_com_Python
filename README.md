@@ -393,37 +393,17 @@ Se as portas 5000, 8080 ou 5432 já estiverem em uso:
 ## 📝 Notas de Desenvolvimento
 
 - O projeto utiliza CORS para permitir requisições do frontend para o backend
-- As senhas são armazenadas em texto simples (não recomendado para produção)
-- O banco de dados é criado automaticamente na primeira execução
 - Modo debug está ativado no Flask (desabilite em produção)
 
 ---
 
 ## 🚧 Próximas Melhorias
 
-- [ ] Implementar autenticação JWT
-- [ ] Hash de senhas (bcrypt)
-- [ ] Paginação na listagem de usuários
-- [ ] Filtros e busca avançada
+- [ ] Paginação na listagem de usuários (Busca do back-end trazendo todos os usuários)
+- [ ] Filtros e busca avançada (melhorar porque hj só filtra o objeto no front-end)
 - [ ] Testes unitários e de integração
 - [ ] CI/CD pipeline
 - [ ] Documentação Swagger/OpenAPI
-
----
-
-## 👤 Autor
-
-**Pedro Gonçalo**
-
-- GitHub: [@pedrogoncaloDev](https://github.com/pedrogoncaloDev)
-
----
-
-## 📄 Licença
-
-Este projeto é de código aberto e está disponível para fins educacionais.
-
----
 
 ## 🤝 Contribuições
 
