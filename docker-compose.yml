@@ -2,7 +2,7 @@ services:
 
   postgres:
     image: postgres:16-alpine
-    container_name: postgres_db
+    container_name: postgres_userhub
     restart: always
 
     environment:
@@ -24,7 +24,7 @@ services:
 
   backend:
     build: ./back_end
-    container_name: python_backend
+    container_name: backend_userhub
     restart: always
 
     ports:
@@ -46,7 +46,7 @@ services:
   frontend:
     build:
       context: ./front_end
-    container_name: vue_frontend
+    container_name: frontend_userhub
     restart: always
 
     ports:
