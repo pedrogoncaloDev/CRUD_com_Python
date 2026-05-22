@@ -17,6 +17,7 @@
                 <v-text-field
                     v-model="newUser.email"
                     label="Email"
+					placeholder="exemplo@gmail.com"
                     :rules="showErrors ? [rules.required, rules.email] : []"
                     color="primary"
                     required
@@ -30,6 +31,7 @@
                     type="text"
                     return-masked-value
                     v-model="newUser.telefone"
+					placeholder="(00) 00000-0000 ou (00) 0000-0000"
                     label="Telefone"
                     :rules="showErrors ? [rules.telefone] : []"
                     color="primary"
