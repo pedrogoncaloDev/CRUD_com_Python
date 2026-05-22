@@ -32,6 +32,8 @@ export function formatPhone(limitedDigits) {
             formatted += `) ${digits.substring(2, 6)}-${digits.substring(6)}`;
         } else if (length === 11) { // (##) #####-####
             formatted += `) ${digits.substring(2, 7)}-${digits.substring(7)}`;
+        }else {
+            formatted += `) ${digits.substring(2)}`;
         }
     }
     
