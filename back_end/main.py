@@ -1,10 +1,10 @@
 import os 
 
-if os.getenv('DEBUG_MODE') == 'true':
+if os.getenv("DEBUG") == "1":
     import debugpy
+
     debugpy.listen(("0.0.0.0", 5678))
-    print("🐛 Debugger aguardando conexão na porta 5678...")
-    # debugpy.wait_for_client()  # Descomente se quiser que espere o debugger conectar
+    debugpy.wait_for_client()
 
 
 from flask import Flask, jsonify, request

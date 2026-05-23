@@ -42,6 +42,7 @@ services:
       DB_HOST: postgres
       DB_PORT: 5432
       DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+      DEBUG: ${DEBUG}
 
   frontend:
     build:
