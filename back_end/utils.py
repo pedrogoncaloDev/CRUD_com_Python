@@ -14,13 +14,5 @@ def is_valid_email(email):
 
 
 def valid_phone(phone):
-    # Remove todos os caracteres não numéricos
-    digits = ''.join(filter(str.isdigit, str(phone)))
-    
-    if len(digits) == 10:  # Válido - Formato (00) 0000-0000
-        return True
-    elif len(digits) == 11:  # Válido - Formato (00) 00000-0000
-        return True
-    else:
-        # Número de telefone inválido
-        return False
+    digits = ''.join(filter(str.isdigit, phone))
+    return len(digits) in (10, 11)

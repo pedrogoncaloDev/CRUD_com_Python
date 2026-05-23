@@ -29,7 +29,7 @@ class Users:
                     if not valid_phone(user_data['telefone']):
                         return {"success": False, "message": "Telefone inválido."}
 
-                    phone = ''.join(filter(str.isdigit, str(phone)))
+                    phone = ''.join(filter(str.isdigit, str(user_data['telefone'])))
 
                     cur.execute("""
                         INSERT INTO usuarios (nome, email, telefone, data_criacao, data_atualizacao)
@@ -90,7 +90,7 @@ class Users:
                     if not valid_phone(user_data['telefone']):
                         return {"success": False, "message": "Telefone inválido."}
 
-                    phone = ''.join(filter(str.isdigit, str(phone)))
+                    phone = ''.join(filter(str.isdigit, str(user_data['telefone'])))
 
                     cur.execute("""
                         UPDATE usuarios
@@ -120,10 +120,10 @@ class Users:
 
     def validate_user(self, user):
         if not user.get('nome') or not user['nome'].strip():
-            return {"success": False, "message": "O campo 'nome' não pode estar vazio."}
+            return {"success": False, "message": "Nome completo não pode estar vazio."}
 
         if not user.get('email') or not is_valid_email(user['email']):
-            return {"success": False, "message": "O campo 'email' é inválido."}
+            return {"success": False, "message": "Email inválido."}
         
         telefone_limpo = ''.join(filter(str.isdigit, str(user['telefone'])))
 
