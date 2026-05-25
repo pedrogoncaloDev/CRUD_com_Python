@@ -31,7 +31,6 @@ Sistema completo de gerenciamento de usuários (CRUD) desenvolvido para consolid
 - Flask 2.x (Python)
 - Flask-CORS
 - Psycopg2 (PostgreSQL adapter)
-- Pytz (Timezone management)
 
 **Banco de Dados:**
 - PostgreSQL 16
