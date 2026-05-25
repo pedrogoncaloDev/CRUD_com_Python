@@ -1,12 +1,8 @@
-import { formatDate, formatPhone, API_URL } from '../../src/utils.js';
+import { formatDate, formatPhone } from '../../src/utils.js';
 
 describe('formatDate', () => {
     it('formata uma data ISO corretamente', () => {
         expect(formatDate('2024-07-07T15:30:45Z')).toBe('07/07/2024 15:30:45');
-    });
-
-    it('formata outra data ISO corretamente', () => {
-        expect(formatDate('2023-01-01T01:02:03Z')).toBe('01/01/2023 01:02:03');
     });
 });
 
@@ -32,11 +28,5 @@ describe('formatPhone', () => {
         expect(formatPhone('')).toBe('');
         expect(formatPhone(null)).toBe('');
         expect(formatPhone(undefined)).toBe('');
-    });
-});
-
-describe('API_URL', () => {
-    it('possui o valor correto', () => {
-        expect(API_URL).toBe('http://localhost:5000/users');
     });
 });

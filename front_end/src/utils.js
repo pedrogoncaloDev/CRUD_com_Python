@@ -1,4 +1,4 @@
-export const API_URL = 'http://localhost:5000/users';
+export const API_URL = process.env.API_URL || 'http://localhost:5000';
 
 export function formatDate(isoString) {
     const date = new Date(isoString);

@@ -129,7 +129,7 @@ export default {
 			}
 
 			try {
-				const response = await axios.put(API_URL, this.user);
+				const response = await axios.put(`${API_URL}/users`, this.user);
 
 				if (response.status === 201) {
 					this.CloseModal();

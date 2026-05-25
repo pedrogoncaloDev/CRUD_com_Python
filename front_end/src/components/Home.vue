@@ -105,7 +105,7 @@ export default {
       this.isLoading = true;
 
       axios
-        .get(API_URL)
+        .get(`${API_URL}/users`)
         .then((response) => {
           this.users = response.data;
           this.IsOnAPI = true;

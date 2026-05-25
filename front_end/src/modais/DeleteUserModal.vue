@@ -49,7 +49,7 @@ import axios from 'axios';
 
         methods: {
             confirmDelete() {
-                axios.delete(`${API_URL}/${this.informationsUser.id}`)
+                axios.delete(`${API_URL}/users/${this.informationsUser.id}`)
                     .then(() => {
                         this.$emit("CloseModal");
                         this.$emit("showMessageModal", "Sucesso", "Usuário deletado com sucesso!");

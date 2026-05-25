@@ -134,7 +134,7 @@ export default {
 
         async CreateUser() {
             try {
-                const response = await axios.post(API_URL, this.newUser);
+                const response = await axios.post(`${API_URL}/users`, this.newUser);
 
                 if (response.status === 201) {
                     this.$emit("showMessageModal", "Sucesso", "Usuário criado com sucesso!");
