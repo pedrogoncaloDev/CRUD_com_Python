@@ -4,7 +4,10 @@ if os.getenv("DEBUG") == "1":
     import debugpy
 
     debugpy.listen(("0.0.0.0", 5678))
+    print("Aguardando debugger...")
+    
     debugpy.wait_for_client()
+    print("Debugger conectado, continuando execução...")
 
 
 from flask import Flask, jsonify, request
@@ -48,9 +51,7 @@ def read_users():
         users_read = users.read_users() 
     
         if users_read['success']:
-            json_response = json.dumps(users_read['message'], default=date_to_string, indent=4)
-
-            return json_response, 200
+            return jsonify(users_read['message']), 200
         else:
             return jsonify({"error": users_read["message"]}), 400
     except Exception as e:
