@@ -1,7 +1,7 @@
 import psycopg2
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from utils import is_valid_email, valid_phone
-import pytz
 
 class Users:
     def __init__(self, CONN_DATABASE_USERHUB ):
@@ -24,7 +24,7 @@ class Users:
                     if cur.fetchone():
                         return {"success": False, "message": "Email já utilizado por outro usuário."}
 
-                    data_now = datetime.utcnow().replace(tzinfo=pytz.UTC)
+                    data_now = datetime.now(ZoneInfo("America/Sao_Paulo"))
 
                     if not valid_phone(user_data['telefone']):
                         return {"success": False, "message": "Telefone inválido."}
@@ -86,11 +86,12 @@ class Users:
                     if cur.fetchone():
                         return {"success": False, "message": "Email já utilizado por outro usuário."}
                     
-                    data_atualizacao = datetime.utcnow().replace(tzinfo=pytz.UTC)
                     if not valid_phone(user_data['telefone']):
                         return {"success": False, "message": "Telefone inválido."}
 
                     phone = ''.join(filter(str.isdigit, str(user_data['telefone'])))
+
+                    data_atualizacao = datetime.now(ZoneInfo("America/Sao_Paulo"))
 
                     cur.execute("""
                         UPDATE usuarios
