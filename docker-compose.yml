@@ -24,6 +24,10 @@ services:
 
   backend:
     build: ./back_end
+
+    volumes:
+      - ./back_end:/app
+
     container_name: backend_userhub
     restart: always
 
@@ -47,6 +51,10 @@ services:
   frontend:
     build:
       context: ./front_end
+
+    volumes:
+      - ./front_end:/app
+
     container_name: frontend_userhub
     restart: always
 

@@ -1,5 +1,5 @@
 # Usa uma imagem leve do Python
-FROM python:3.12-slim
+FROM python:3.12
 
 # Define a pasta onde o código vai rodar
 WORKDIR /app
