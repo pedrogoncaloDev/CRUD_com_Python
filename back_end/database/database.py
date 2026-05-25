@@ -29,8 +29,8 @@ def create_table_users():
                         nome VARCHAR(200) NOT NULL,
                         email VARCHAR(150) UNIQUE NOT NULL,
                         telefone VARCHAR(20) ,
-                        data_criacao TIMESTAMP,
-                        data_atualizacao TIMESTAMP
+                        data_criacao TIMESTAMPTZ,
+                        data_atualizacao TIMESTAMPTZ
                     );
                 """)
 
