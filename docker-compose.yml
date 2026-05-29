@@ -23,7 +23,7 @@ services:
       retries: 10
 
   backend:
-    image: fastapi-python312-slim:dev
+    image: flask-python312-slim:dev
 
     build:
       context: ./back_end

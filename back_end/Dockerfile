@@ -19,4 +19,4 @@ RUN useradd -m appuser
 USER appuser
 
 # Comando que será executado quando o container iniciar
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["gunicorn", "main:app", "-b", "0.0.0.0:5000"]
