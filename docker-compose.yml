@@ -23,17 +23,19 @@ services:
       retries: 10
 
   backend:
-    build: ./back_end
+    image: fastapi-python312-slim:dev
+
+    build:
+      context: ./back_end
 
     volumes:
       - ./back_end:/app
 
-    container_name: backend_userhub
     restart: always
 
     ports:
       - "5000:5000"
-      - "5678:5678"  # Porta do debugger
+      - "5678:5678"
 
     depends_on:
       postgres:
@@ -49,13 +51,14 @@ services:
       DEBUG: ${DEBUG}
 
   frontend:
+    image: vue-node22:dev
+
     build:
       context: ./front_end
 
     volumes:
       - ./front_end:/app
 
-    container_name: frontend_userhub
     restart: always
 
     ports:
