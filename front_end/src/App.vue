@@ -20,6 +20,10 @@ export default {
   box-sizing: border-box;
 }
 
+html{
+  overflow-y: auto;
+}
+
 body {
   min-height: 100vh;
   display: flex;
@@ -34,5 +38,6 @@ body {
   text-align: center;
   color: #fff;
   width: 100%;
+  min-width: 0;
 }
 </style>
