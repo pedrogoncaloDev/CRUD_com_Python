@@ -18,5 +18,10 @@ COPY . .
 RUN useradd -m appuser
 USER appuser
 
+# Valores padrão pensados para uso via docker-compose;
+# sobrescrevíveis por variáveis de ambiente em outros ambientes de deploy
+ENV FLASK_HOST=0.0.0.0
+ENV FLASK_PORT=5000
+
 # Comando que será executado quando o container iniciar
-CMD ["gunicorn", "main:app", "-b", "0.0.0.0:5000"]
+CMD gunicorn main:app -b ${FLASK_HOST}:${FLASK_PORT}
