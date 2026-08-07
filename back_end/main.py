@@ -81,7 +81,7 @@ def delete_user(user_id):
         else:
             return jsonify({"error": user_deleted["message"]}), 400
     except Exception as e:
-        return jsonify({"error": str(e)}),
+        return jsonify({"error": str(e)}), 400
 
 
 if __name__ == '__main__':
