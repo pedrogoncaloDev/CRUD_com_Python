@@ -111,10 +111,10 @@ export default {
             this.$refs.form.resetValidation();
             
             await this.$nextTick();
-            
-            const isValid = this.$refs.form.validate();
-            
-            if (!isValid) {
+
+            const { valid } = await this.$refs.form.validate();
+
+            if (!valid) {
                 this.$emit("showMessageModal", "Erro", "Preencha todos os campos obrigatórios corretamente.");
                 return;
             }

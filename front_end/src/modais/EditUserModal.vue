@@ -112,9 +112,9 @@ export default {
 		},
 
 		async handleSubmit() {
-			const form_information = this.$refs.form.validate(); // Valida os campos do formulário
+			const { valid } = await this.$refs.form.validate(); // Valida os campos do formulário
 
-			if (!form_information) {
+			if (!valid) {
 				this.$emit("showMessageModal", "Erro", "Preencha todos os campos obrigatórios corretamente.");
 				return;
 			}
@@ -139,7 +139,7 @@ export default {
 					this.$emit("showMessageModal", "Erro", "Erro ao editar o usuário!");
 				}
 			} catch (error) {
-				const message = error.response.data.error === undefined ? error.message : error.response.data.error;
+				const message = error.response?.data?.error || error.message || "Erro ao editar usuário";
 
 				console.error("Erro ao salvar o usuário:", error);
 				this.$emit("showMessageModal", "Erro", message);
