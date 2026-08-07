@@ -27,4 +27,9 @@ pnpm-debug.log*
 
 # Back-end
 **/__pycache__/
-back-end/venv
+back_end/venv
+back_end/.pytest_cache/
+back_end/.coverage
+
+# Front-end
+front_end/coverage/
