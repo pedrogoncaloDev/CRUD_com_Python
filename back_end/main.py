@@ -3,7 +3,7 @@ import os
 if os.getenv("DEBUG") == "1":
     import debugpy
 
-    debugpy.listen(("0.0.0.0", 5678))
+    debugpy.listen(("0.0.0.0", int(os.getenv("DEBUG_PORT", 5678))))
     print("Aguardando debugger...")
     
     debugpy.wait_for_client()
