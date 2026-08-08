@@ -219,6 +219,15 @@ O frontend estará rodando em: http://localhost:8080
 
 ## 📡 Documentação da API
 
+### Swagger
+
+A API conta com documentação interativa gerada via [Swagger](https://swagger.io/) (usando [flasgger](https://github.com/flasgger/flasgger)), disponível assim que o backend estiver rodando:
+
+- **Swagger UI:** http://localhost:5000/apidocs/
+- **Especificação OpenAPI (JSON):** http://localhost:5000/apispec_1.json
+
+Por lá é possível ver todos os endpoints, seus parâmetros, exemplos de corpo de requisição e respostas, além de poder testar as chamadas diretamente pelo navegador ("Try it out").
+
 ### Endpoints Disponíveis
 
 | Método | Endpoint | Body (JSON) | Descrição |
