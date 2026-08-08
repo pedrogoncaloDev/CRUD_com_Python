@@ -223,16 +223,26 @@ O frontend estará rodando em: http://localhost:8080
 
 | Método | Endpoint | Body (JSON) | Descrição |
 |--------|----------|-------------|-----------|
-| **GET** | `/users` | - | Retorna todos os usuários |
+| **GET** | `/users?page={page}&per_page={per_page}` | - | Retorna uma página de usuários (padrão: `page=1`, `per_page=10`) |
 | **POST** | `/users` | `{"nome": "João Silva", "email": "joao@email.com", "senha": "senha123"}` | Cria um novo usuário |
 | **PUT** | `/users` | `{"id": 1, "nome": "João Silva", "email": "joao@email.com", "senha": "novaSenha123"}` | Atualiza um usuário existente |
 | **DELETE** | `/users/{id}` | - | Remove um usuário pelo ID |
 
 ### Exemplos de Requisições
 
-**Listar todos os usuários:**
+**Listar usuários (paginado):**
 ```bash
-curl http://localhost:5000/users
+curl "http://localhost:5000/users?page=1&per_page=10"
+```
+
+Resposta:
+```json
+{
+  "users": [ { "id": 1, "nome": "João Silva", "email": "joao@email.com", "telefone": "11987654321", "data_criacao": "...", "data_atualizacao": "..." } ],
+  "total": 1,
+  "page": 1,
+  "per_page": 10
+}
 ```
 
 **Criar um novo usuário:**
@@ -463,14 +473,6 @@ Se as portas 5000, 8080 ou 5432 já estiverem em uso:
 - Modo debug está ativado no Flask (desabilite em produção)
 
 ---
-
-## 🚧 Próximas Melhorias
-
-- [ ] Paginação na listagem de usuários (Busca do back-end trazendo todos os usuários)
-- [ ] Filtros e busca avançada (melhorar porque hj só filtra o objeto no front-end)
-- [x] Testes unitários e de integração
-- [x] CI/CD pipeline (testes automatizados)
-- [ ] Documentação Swagger/OpenAPI
 
 ## 🤝 Contribuições
 

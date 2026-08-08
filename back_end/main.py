@@ -21,7 +21,10 @@ import json
 app = Flask(__name__)
 CORS(app, resources={
 	r"/*": {
-		"origins": ["http://localhost:8080", "http://localhost:80"],
+		"origins": [
+			"http://localhost:8080", "http://127.0.0.1:8080",
+			"http://localhost:80", "http://127.0.0.1:80",
+		],
 		"methods": ["GET", "POST", "PUT", "DELETE"],
 		"allow_headers": ["Content-Type"]
 	}
@@ -106,32 +109,56 @@ def create_user():
 
 @app.route('/users', methods=['GET'])
 def read_users():
-	"""Lista todos os usuários
+	"""Lista usuários de forma paginada
 	---
 	tags:
 	  - Users
+	parameters:
+	  - in: query
+	    name: page
+	    type: integer
+	    default: 1
+	    description: Número da página (começando em 1)
+	  - in: query
+	    name: per_page
+	    type: integer
+	    default: 10
+	    description: Quantidade de usuários por página
+	  - in: query
+	    name: search
+	    type: string
+	    description: Filtra por nome, email, telefone ou ID (busca em toda a tabela, não só na página atual)
 	responses:
 	  200:
-	    description: Lista de usuários
+	    description: Página de usuários
 	    schema:
-	      type: array
-	      items:
-	        type: object
-	        properties:
-	          id:
-	            type: integer
-	          nome:
-	            type: string
-	          email:
-	            type: string
-	          telefone:
-	            type: string
-	          data_criacao:
-	            type: string
-	            format: date-time
-	          data_atualizacao:
-	            type: string
-	            format: date-time
+	      type: object
+	      properties:
+	        users:
+	          type: array
+	          items:
+	            type: object
+	            properties:
+	              id:
+	                type: integer
+	              nome:
+	                type: string
+	              email:
+	                type: string
+	              telefone:
+	                type: string
+	              data_criacao:
+	                type: string
+	                format: date-time
+	              data_atualizacao:
+	                type: string
+	                format: date-time
+	        total:
+	          type: integer
+	        page:
+	          type: integer
+	        per_page:
+	          type: integer
 	  400:
 	    description: Erro ao buscar usuários
 	    schema:
@@ -141,7 +168,16 @@ def read_users():
 	          type: string
 	"""
 	try:
-		users_read = users.read_users()
+		page = request.args.get('page', 1, type=int)
+		per_page = request.args.get('per_page', 10, type=int)
+		search = request.args.get('search', '', type=str).strip() or None
+
+		if page < 1:
+			page = 1
+		if per_page < 1:
+			per_page = 10
+
+		users_read = users.read_users(page, per_page, search)
 
 		if users_read['success']:
 			return jsonify(users_read['message']), 200

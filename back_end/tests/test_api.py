@@ -34,16 +34,48 @@ class TestCreateUserRoute:
 
 
 class TestReadUsersRoute:
-    def test_sucesso_retorna_200_com_lista(self, client, mocker):
+    def test_sucesso_retorna_200_com_pagina(self, client, mocker):
         test_client, users = client
         mocker.patch.object(
-            users, "read_users", return_value={"success": True, "message": [{"id": 1, "nome": "Ana"}]}
+            users,
+            "read_users",
+            return_value={
+                "success": True,
+                "message": {"users": [{"id": 1, "nome": "Ana"}], "total": 1, "page": 1, "per_page": 10},
+            },
         )
 
         response = test_client.get("/users")
 
         assert response.status_code == 200
-        assert response.get_json() == [{"id": 1, "nome": "Ana"}]
+        assert response.get_json() == {"users": [{"id": 1, "nome": "Ana"}], "total": 1, "page": 1, "per_page": 10}
+        users.read_users.assert_called_once_with(1, 10, None)
+
+    def test_repassa_page_e_per_page_da_query_string(self, client, mocker):
+        test_client, users = client
+        mocker.patch.object(
+            users,
+            "read_users",
+            return_value={"success": True, "message": {"users": [], "total": 0, "page": 2, "per_page": 5}},
+        )
+
+        response = test_client.get("/users?page=2&per_page=5")
+
+        assert response.status_code == 200
+        users.read_users.assert_called_once_with(2, 5, None)
+
+    def test_repassa_search_da_query_string(self, client, mocker):
+        test_client, users = client
+        mocker.patch.object(
+            users,
+            "read_users",
+            return_value={"success": True, "message": {"users": [], "total": 0, "page": 1, "per_page": 10}},
+        )
+
+        response = test_client.get("/users?search=ana")
+
+        assert response.status_code == 200
+        users.read_users.assert_called_once_with(1, 10, "ana")
 
     def test_falha_retorna_400(self, client, mocker):
         test_client, users = client

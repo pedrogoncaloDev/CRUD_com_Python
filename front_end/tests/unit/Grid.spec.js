@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 import Grid from '../../src/components/Grid.vue';
 import { withVuetify } from './vuetify-setup';
 
@@ -12,33 +13,61 @@ function mountGrid(props = {}) {
 }
 
 describe('Grid.vue', () => {
-    it('não filtra nada quando a busca está vazia', () => {
-        const wrapper = mountGrid();
-        expect(wrapper.vm.filteredUsers).toHaveLength(2);
+    beforeEach(() => {
+        jest.useFakeTimers();
     });
 
-    it('filtra usuários pelo nome', () => {
+    afterEach(() => {
+        jest.runOnlyPendingTimers();
+        jest.useRealTimers();
+    });
+
+    it('não emite search antes do debounce vencer', async () => {
         const wrapper = mountGrid();
         wrapper.vm.search = 'ana';
-        expect(wrapper.vm.filteredUsers).toEqual([users[0]]);
+        await nextTick();
+
+        jest.advanceTimersByTime(399);
+
+        expect(wrapper.emitted('search')).toBeUndefined();
     });
 
-    it('filtra usuários pelo email', () => {
+    it('emite search com o termo (sem espaços) após o debounce', async () => {
         const wrapper = mountGrid();
-        wrapper.vm.search = 'bruno@example.com';
-        expect(wrapper.vm.filteredUsers).toEqual([users[1]]);
+        wrapper.vm.search = '  ana  ';
+        await nextTick();
+
+        jest.advanceTimersByTime(400);
+
+        expect(wrapper.emitted('search')).toEqual([['ana']]);
     });
 
-    it('filtra usuários pelo id', () => {
+    it('reinicia o debounce a cada nova digitação', async () => {
         const wrapper = mountGrid();
-        wrapper.vm.search = '777';
-        expect(wrapper.vm.filteredUsers).toEqual([users[1]]);
+        wrapper.vm.search = 'a';
+        await nextTick();
+        jest.advanceTimersByTime(200);
+
+        wrapper.vm.search = 'an';
+        await nextTick();
+        jest.advanceTimersByTime(200);
+
+        wrapper.vm.search = 'ana';
+        await nextTick();
+        jest.advanceTimersByTime(400);
+
+        expect(wrapper.emitted('search')).toEqual([['ana']]);
     });
 
     it('emite GetUsers ao clicar no botão de recarregar', async () => {
         const wrapper = mountGrid();
+        // A v-data-table-server já emite GetUsers uma vez ao montar (opções padrão).
+        const emissionsBeforeClick = wrapper.emitted('GetUsers').length;
+
         await wrapper.find('button').trigger('click');
-        expect(wrapper.emitted('GetUsers')).toHaveLength(1);
+
+        expect(wrapper.emitted('GetUsers')).toHaveLength(emissionsBeforeClick + 1);
+        expect(wrapper.emitted('GetUsers').at(-1)).toEqual([]);
     });
 
     it('emite EditUser com o usuário correto', async () => {
