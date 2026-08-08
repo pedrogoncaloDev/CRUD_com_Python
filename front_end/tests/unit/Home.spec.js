@@ -15,7 +15,7 @@ function mountHome() {
 
 describe('Home.vue (integração)', () => {
     beforeEach(() => {
-        axios.get.mockResolvedValue({ data: [user] });
+        axios.get.mockResolvedValue({ data: { users: [user], total: 1, page: 1, per_page: 10 } });
     });
 
     afterEach(() => {
@@ -26,8 +26,27 @@ describe('Home.vue (integração)', () => {
         const wrapper = mountHome();
         await flushPromises();
 
-        expect(axios.get).toHaveBeenCalledWith(expect.stringContaining('/users'));
+        expect(axios.get).toHaveBeenCalledWith(
+            expect.stringContaining('/users'),
+            { params: { page: 1, per_page: 10, search: undefined } },
+        );
         expect(wrapper.findComponent(Grid).props('users')).toEqual([user]);
+        expect(wrapper.findComponent(Grid).props('totalUsers')).toBe(1);
+    });
+
+    it('busca em todas as páginas ao pesquisar, voltando para a página 1', async () => {
+        const wrapper = mountHome();
+        await flushPromises();
+
+        wrapper.vm.page = 3;
+        await wrapper.findComponent(Grid).vm.$emit('search', 'ana');
+        await flushPromises();
+
+        expect(axios.get).toHaveBeenLastCalledWith(
+            expect.stringContaining('/users'),
+            { params: { page: 1, per_page: 10, search: 'ana' } },
+        );
+        expect(wrapper.vm.page).toBe(1);
     });
 
     it('mostra mensagem de erro quando a busca de usuários falha', async () => {

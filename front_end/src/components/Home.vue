@@ -7,14 +7,18 @@
       @showMessageModal="showMessageModal"
     />
 
-    <Grid  
+    <Grid
       :users="users"
       :isLoading="isLoading"
+      :totalUsers="totalUsers"
+      :page="page"
+      :itemsPerPage="itemsPerPage"
       @CloseModal="CloseModal"
       @GetUsers="GetUsers"
+      @search="Search"
       @EditUser="EditUser"
       @DeleteUser="DeleteUser"
-    /> 
+    />
   </v-container>
 
   <EditUserModal
@@ -71,6 +75,9 @@ export default {
       ],
 
       users: [],
+      totalUsers: 0,
+      page: 1,
+      itemsPerPage: 10,
       search: "",
       informationsUser: {},
       ShowModalEditUser: false,
@@ -85,9 +92,9 @@ export default {
     };
   },
 
-  created() {
-    this.GetUsers();
-  },
+  // Não busca usuários aqui: o v-data-table-server (dentro de Grid) emite
+  // "update:options" automaticamente ao montar, com a página/tamanho padrão,
+  // o que já dispara GetUsers. Chamar aqui também causaria uma requisição duplicada.
 
   methods: {
     formatDate(dateString) {
@@ -101,13 +108,21 @@ export default {
       this.GetUsers();
     },
 
-    GetUsers() {
+    GetUsers(options) {
+      if (options) {
+        this.page = options.page;
+        this.itemsPerPage = options.itemsPerPage;
+      }
+
       this.isLoading = true;
 
       axios
-        .get(`${API_URL}/users`)
+        .get(`${API_URL}/users`, {
+          params: { page: this.page, per_page: this.itemsPerPage, search: this.search || undefined },
+        })
         .then((response) => {
-          this.users = response.data;
+          this.users = response.data.users;
+          this.totalUsers = response.data.total;
           this.IsOnAPI = true;
         })
         .catch((error) => {
@@ -119,6 +134,12 @@ export default {
         .finally(() => {
           this.isLoading = false;
         });
+    },
+
+    Search(term) {
+      this.search = term;
+      this.page = 1;
+      this.GetUsers();
     },
 
     EditUser(user) {

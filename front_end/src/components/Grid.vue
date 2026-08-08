@@ -1,23 +1,25 @@
 <template>
-  <v-data-table
+  <v-data-table-server
     :headers="headers"
-    :items="filteredUsers"
+    :items="users"
+    :items-length="totalUsers"
     :loading="isLoading"
+    :page="page"
+    :items-per-page="itemsPerPage"
     loading-text="Carregando usuários..."
     no-data-text="Nenhum usuário cadastrado"
     :items-per-page-options="[
                               {value: 10, title: '10'},
                               {value: 25, title: '25'},
                               {value: 50, title: '50'},
-                              {value: 100, title: '100'},
-                              {value: -1, title: 'Todos'}
+                              {value: 100, title: '100'}
                             ]"
     items-per-page-text="Usuários por página"
     page-text="{0} de {1}"
     class="elevation-1 grid-table"
-    items-per-page="50"
     item-value="id"
     dark
+    @update:options="onOptionsUpdate"
   >
       <template v-slot:no-data>
         <v-card-text>
@@ -31,7 +33,7 @@
             <v-text-field
             v-model="search"
             label="Pesquisar"
-            placeholder="Pesquise por qualquer campo"
+            placeholder="Pesquise por qualquer campo (todas as páginas)"
             density="default"
             variant="underlined"
             validateOn="blur"
@@ -75,7 +77,7 @@
             <td>{{ formatDate(item.data_atualizacao) }}</td>
         </tr>
       </template>
-  </v-data-table>
+  </v-data-table-server>
 </template>
 
 <script>
@@ -94,9 +96,24 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    totalUsers: {
+      type: Number,
+      default: 0,
+    },
+
+    page: {
+      type: Number,
+      default: 1,
+    },
+
+    itemsPerPage: {
+      type: Number,
+      default: 10,
+    },
   },
 
-  emits: ["EditUser", "DeleteUser", "GetUsers"],
+  emits: ["EditUser", "DeleteUser", "GetUsers", "search"],
 
   data() {
     return {
@@ -109,27 +126,18 @@ export default {
         { title: "Data de Criação", key: "data_criacao" },
         { title: "Data de Atualização", key: "data_atualizacao" },
       ],
-      search: ""
+      search: "",
+      searchDebounceTimer: null,
     };
   },
 
-  computed: {
-    filteredUsers() {
-      if (!this.search) {
-        return this.users;
-      }
+  watch: {
+    search(newValue) {
+      clearTimeout(this.searchDebounceTimer);
 
-      const searchLower = this.search.toLowerCase();
-      return this.users.filter((user) => {
-        return (
-          user.nome.toLowerCase().includes(searchLower) ||
-          user.email.toLowerCase().includes(searchLower) ||
-          user.telefone.toLowerCase().includes(searchLower) ||
-          user.id.toString().includes(searchLower) ||
-          formatDate(user.data_criacao).includes(searchLower) ||
-          formatDate(user.data_atualizacao).includes(searchLower)
-        );
-      });
+      this.searchDebounceTimer = setTimeout(() => {
+        this.$emit("search", (newValue || "").trim());
+      }, 400);
     },
   },
 
@@ -140,6 +148,10 @@ export default {
 
     formatPhone(phone) {
       return formatPhone(phone);
+    },
+
+    onOptionsUpdate({ page, itemsPerPage }) {
+      this.$emit("GetUsers", { page, itemsPerPage });
     },
   },
 };

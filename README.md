@@ -6,6 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python)](https://www.python.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql)](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](https://www.docker.com/)
+[![CI](https://github.com/pedrogoncaloDev/UserHub/actions/workflows/ci.yml/badge.svg)](https://github.com/pedrogoncaloDev/UserHub/actions/workflows/ci.yml)
 
 ## 📋 Sobre o Projeto
 
@@ -222,16 +223,26 @@ O frontend estará rodando em: http://localhost:8080
 
 | Método | Endpoint | Body (JSON) | Descrição |
 |--------|----------|-------------|-----------|
-| **GET** | `/users` | - | Retorna todos os usuários |
+| **GET** | `/users?page={page}&per_page={per_page}` | - | Retorna uma página de usuários (padrão: `page=1`, `per_page=10`) |
 | **POST** | `/users` | `{"nome": "João Silva", "email": "joao@email.com", "senha": "senha123"}` | Cria um novo usuário |
 | **PUT** | `/users` | `{"id": 1, "nome": "João Silva", "email": "joao@email.com", "senha": "novaSenha123"}` | Atualiza um usuário existente |
 | **DELETE** | `/users/{id}` | - | Remove um usuário pelo ID |
 
 ### Exemplos de Requisições
 
-**Listar todos os usuários:**
+**Listar usuários (paginado):**
 ```bash
-curl http://localhost:5000/users
+curl "http://localhost:5000/users?page=1&per_page=10"
+```
+
+Resposta:
+```json
+{
+  "users": [ { "id": 1, "nome": "João Silva", "email": "joao@email.com", "telefone": "11987654321", "data_criacao": "...", "data_atualizacao": "..." } ],
+  "total": 1,
+  "page": 1,
+  "per_page": 10
+}
 ```
 
 **Criar um novo usuário:**
@@ -255,12 +266,64 @@ curl -X DELETE http://localhost:5000/users/1
 
 ---
 
+## ✅ Testes
+
+O projeto conta com testes automatizados no backend e no frontend, executados automaticamente via CI (GitHub Actions) a cada push/PR para a branch `main`.
+
+### Backend (pytest)
+
+Os testes ficam em `back_end/tests/` e cobrem a API (`test_api.py`), o modelo de usuário (`test_users.py`), a configuração do banco de dados (`test_config_db.py`) e as funções auxiliares (`test_utils.py`).
+
+```bash
+cd back_end
+
+# Ativar o ambiente virtual (veja seção de configuração do backend)
+# Instalar dependências, se ainda não instaladas
+pip install -r requirements.txt
+
+# Executar todos os testes
+pytest -v
+
+# Executar com relatório de cobertura
+pytest --cov
+```
+
+### Frontend (Jest)
+
+Os testes ficam em `front_end/tests/unit/` e cobrem componentes (`Home`, `Grid`, `AddUser`, `EditUserModal`, `DeleteUserModal`) e funções utilitárias (`utils`, `validationRules`).
+
+```bash
+cd front_end
+
+# Instalar dependências, se ainda não instaladas
+npm install
+
+# Executar os testes
+npm test
+```
+
+### CI (GitHub Actions)
+
+O workflow definido em `.github/workflows/ci.yml` roda os testes de backend e frontend em paralelo a cada `push`/`pull_request` para `main`, e só marca o pipeline como aprovado (`ci-gate`) se ambos passarem.
+
+---
+
 ## 📁 Estrutura do Projeto
 
 ```
 UserHub/
+├── .github/
+│   └── workflows/
+│       └── ci.yml               # Pipeline de CI (testes backend + frontend)
+│
 ├── back_end/                    # Backend Flask
 │   ├── __pycache__/
+│   ├── tests/                   # Testes automatizados (pytest)
+│   │   ├── conftest.py
+│   │   ├── test_api.py          # Testes das rotas da API
+│   │   ├── test_config_db.py    # Testes da configuração do banco
+│   │   ├── test_users.py        # Testes do modelo de usuário
+│   │   └── test_utils.py        # Testes das funções auxiliares
 │   ├── api.py                   # Rotas da API REST
 │   ├── config_db.py             # Configurações do banco de dados
 │   ├── database.py              # Métodos de criação do DB e tabelas
@@ -283,6 +346,15 @@ UserHub/
 │   │   ├── main.js              # Configuração inicial do Vue
 │   │   ├── utils.js             # Funções auxiliares
 │   │   └── validationRules.js   # Regras de validação de formulários
+│   ├── tests/
+│   │   └── unit/                # Testes automatizados (Jest)
+│   │       ├── Home.spec.js
+│   │       ├── Grid.spec.js
+│   │       ├── AddUser.spec.js
+│   │       ├── EditUserModal.spec.js
+│   │       ├── DeleteUserModal.spec.js
+│   │       ├── utils.spec.js
+│   │       └── validationRules.spec.js
 │   ├── babel.config.js
 │   ├── vue.config.js
 │   ├── package.json
@@ -343,6 +415,9 @@ npm run build
 
 # Lint e correção de código
 npm run lint
+
+# Executar testes (Jest)
+npm test
 ```
 
 ### Backend
@@ -359,6 +434,9 @@ pip install -r requirements.txt
 
 # Executar servidor
 python api.py
+
+# Executar testes (pytest)
+pytest -v
 
 # Desativar ambiente virtual
 deactivate
@@ -395,14 +473,6 @@ Se as portas 5000, 8080 ou 5432 já estiverem em uso:
 - Modo debug está ativado no Flask (desabilite em produção)
 
 ---
-
-## 🚧 Próximas Melhorias
-
-- [ ] Paginação na listagem de usuários (Busca do back-end trazendo todos os usuários)
-- [ ] Filtros e busca avançada (melhorar porque hj só filtra o objeto no front-end)
-- [ ] Testes unitários e de integração
-- [ ] CI/CD pipeline
-- [ ] Documentação Swagger/OpenAPI
 
 ## 🤝 Contribuições
 

@@ -92,6 +92,7 @@ class TestCreateUser:
 
 class TestReadUsers:
     def test_retorna_lista_de_usuarios(self, users, mock_db, mock_cursor):
+        mock_cursor.fetchone.return_value = (1,)
         mock_cursor.description = [
             ("id",), ("nome",), ("email",), ("data_criacao",), ("data_atualizacao",), ("telefone",)
         ]
@@ -101,23 +102,67 @@ class TestReadUsers:
 
         assert result == {
             "success": True,
-            "message": [{
-                "id": 1,
-                "nome": "Ana",
-                "email": "ana@example.com",
-                "data_criacao": None,
-                "data_atualizacao": None,
-                "telefone": "11987654321",
-            }],
+            "message": {
+                "users": [{
+                    "id": 1,
+                    "nome": "Ana",
+                    "email": "ana@example.com",
+                    "data_criacao": None,
+                    "data_atualizacao": None,
+                    "telefone": "11987654321",
+                }],
+                "total": 1,
+                "page": 1,
+                "per_page": 10,
+            },
         }
 
     def test_retorna_lista_vazia_sem_usuarios(self, users, mock_db, mock_cursor):
+        mock_cursor.fetchone.return_value = (0,)
         mock_cursor.description = []
         mock_cursor.fetchall.return_value = []
 
         result = users.read_users()
 
-        assert result == {"success": True, "message": []}
+        assert result == {
+            "success": True,
+            "message": {"users": [], "total": 0, "page": 1, "per_page": 10},
+        }
+
+    def test_aplica_limit_e_offset_de_acordo_com_a_pagina(self, users, mock_db, mock_cursor):
+        mock_cursor.fetchone.return_value = (0,)
+        mock_cursor.description = []
+        mock_cursor.fetchall.return_value = []
+
+        users.read_users(page=3, per_page=20)
+
+        select_call = mock_cursor.execute.call_args_list[-1]
+        select_params = select_call[0][1]
+        assert select_params == [20, 40]
+
+    def test_sem_busca_nao_adiciona_where(self, users, mock_db, mock_cursor):
+        mock_cursor.fetchone.return_value = (0,)
+        mock_cursor.description = []
+        mock_cursor.fetchall.return_value = []
+
+        users.read_users()
+
+        count_call = mock_cursor.execute.call_args_list[0]
+        assert "WHERE" not in count_call[0][0]
+
+    def test_busca_filtra_por_nome_email_telefone_ou_id(self, users, mock_db, mock_cursor):
+        mock_cursor.fetchone.return_value = (0,)
+        mock_cursor.description = []
+        mock_cursor.fetchall.return_value = []
+
+        users.read_users(search="ana")
+
+        count_call = mock_cursor.execute.call_args_list[0]
+        assert "WHERE" in count_call[0][0]
+        assert count_call[0][1] == ["%ana%", "%ana%", "%ana%", "%ana%"]
+
+        select_call = mock_cursor.execute.call_args_list[1]
+        assert select_call[0][1] == ["%ana%", "%ana%", "%ana%", "%ana%", 10, 0]
 
     def test_erro_de_banco_de_dados_e_tratado(self, users, mock_db, mock_cursor):
         mock_cursor.execute.side_effect = psycopg2.Error("falha ao consultar")

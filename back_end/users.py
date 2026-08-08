@@ -47,11 +47,35 @@ class Users:
             return {"success": False, "message": f"Erro inesperado: {e}"}
 
 
-    def read_users(self):
+    def read_users(self, page=1, per_page=10, search=None):
         try:
+            offset = (page - 1) * per_page
+
+            where_clause = ""
+            where_params = []
+
+            if search:
+                where_clause = """
+                    WHERE nome ILIKE %s
+                       OR email ILIKE %s
+                       OR telefone ILIKE %s
+                       OR CAST(id AS TEXT) ILIKE %s
+                """
+                like_term = f"%{search}%"
+                where_params = [like_term, like_term, like_term, like_term]
+
             with self.connect() as conn:
                 with conn.cursor() as cur:
-                    cur.execute("SELECT id, nome, email, data_criacao, data_atualizacao, telefone FROM usuarios")
+                    cur.execute(f"SELECT COUNT(*) FROM usuarios {where_clause}", where_params)
+                    total = cur.fetchone()[0]
+
+                    cur.execute(f"""
+                        SELECT id, nome, email, data_criacao, data_atualizacao, telefone
+                        FROM usuarios
+                        {where_clause}
+                        ORDER BY id
+                        LIMIT %s OFFSET %s
+                    """, where_params + [per_page, offset])
                     columns = [desc[0] for desc in cur.description]
                     users = []
 
@@ -59,7 +83,10 @@ class Users:
                         user = dict(zip(columns, line))
                         users.append(user)
 
-                    return {"success": True, "message": users}
+                    return {
+                        "success": True,
+                        "message": {"users": users, "total": total, "page": page, "per_page": per_page},
+                    }
 
         except psycopg2.Error as e:
             return {"success": False, "message": f"Erro de banco de dados: {e}"}
