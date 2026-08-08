@@ -1,0 +1,51 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Back-end: Local (Flask)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/back_end/main.py",
+      "cwd": "${workspaceFolder}/back_end",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "FLASK_HOST": "127.0.0.1",
+        "FLASK_PORT": "5000"
+      }
+    },
+    {
+      // Requer o container 'backend' rodando com DEBUG=1 no .env
+      "name": "Back-end: Docker (Attach)",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+        "host": "localhost",
+        "port": 5678
+      },
+      "pathMappings": [
+        {
+          "localRoot": "${workspaceFolder}/back_end",
+          "remoteRoot": "/app"
+        }
+      ],
+      "justMyCode": true
+    },
+    {
+      // Serve tanto para 'npm run serve' local quanto para o container 'frontend'
+      // (docker-compose) — os dois publicam em http://localhost:8080
+      "name": "Front-end (Edge)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceFolder}/front_end",
+      // O webpack do Vue CLI gera os source maps como "webpack://my-project/./src/..."
+      // (usa o "name" do package.json no meio do caminho); sem isso o VS Code não
+      // acha o arquivo local e o breakpoint fica "unbound"
+      "sourceMapPathOverrides": {
+        "webpack://*/./*": "${webRoot}/*",
+        "webpack://*/*": "*"
+      }
+    }
+  ]
+}
