@@ -3,7 +3,7 @@ services:
   postgres:
     image: postgres:16-alpine
     container_name: postgres_userhub
-    restart: always
+    restart: "no"
 
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -31,7 +31,7 @@ services:
     volumes:
       - ./back_end:/app
 
-    restart: always
+    restart: "no"
 
     ports:
       - "127.0.0.1:5000:5000"
@@ -63,7 +63,7 @@ services:
     volumes:
       - ./front_end:/app
 
-    restart: always
+    restart: "no"
 
     ports:
       - "127.0.0.1:${FRONTEND_PORT}:80"
